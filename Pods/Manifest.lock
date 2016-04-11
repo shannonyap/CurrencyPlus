@@ -1,0 +1,21 @@
+PODS:
+  - Firebase (2.5.1)
+  - PureLayout (3.0.1)
+  - SwiftyButton (0.4.0):
+    - SwiftyButton/CustomContent (= 0.4.0)
+  - SwiftyButton/CustomContent (0.4.0):
+    - PureLayout (~> 3.0)
+  - TextFieldEffects (1.2.0)
+
+DEPENDENCIES:
+  - Firebase (>= 2.5.1)
+  - SwiftyButton
+  - TextFieldEffects
+
+SPEC CHECKSUMS:
+  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
+  SwiftyButton: fffcc0d82b2b5f9ec1681f20ee9c67bed0d5c73b
+  TextFieldEffects: bc4fd3bd557321bd61a0762f3f50965477a36f62
+
+COCOAPODS: 0.39.0
