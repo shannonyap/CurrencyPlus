@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import Firebase
 
 class CreateAccountViewController: UIViewController {
 
+    @IBOutlet weak var email: UITextField!
+    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var emailError: UILabel!
+    @IBOutlet weak var passwordError: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,7 +33,42 @@ class CreateAccountViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func createAccount(sender: UIButton) {
+        emailError.text = ""
+        passwordError.text = ""
+        let ref = Firebase(url: Constants.firebaseUrl)
+        if (isValidEmail(email.text!)){
+            ref.createUser(email.text, password: password.text,
+                           withValueCompletionBlock: { error, result in
+                            if error != nil {
+                                // There was an error creating the account
+                               // print(error)
+                                if (error.code == -9) {
+                                    self.emailError.text = "Email has already been used."
+                                } else if (error.code == -6) {
+                                    self.passwordError.text = "Please enter a valid password."
+                                }
+                            } else {
+                                /*
+                                let uid = result["uid"] as? String
+                                print("Successfully created user account with uid: \(uid)")
+                                print(result)
+                                */
+                                self.performSegueWithIdentifier("createAccount", sender: sender)
+                            }
+            })
+        } else {
+            emailError.text = "Invalid email. Please try again."
+        }
+    }
 
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        let result = emailTest.evaluateWithObject(testStr)
+        return result
+    }
+    
     /*
     // MARK: - Navigation
 
