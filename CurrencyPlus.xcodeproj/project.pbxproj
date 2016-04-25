@@ -17,6 +17,7 @@
 		DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */; };
 		DA728DB81CBB75F3007D7EFB /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = DA728DB71CBB75F3007D7EFB /* Fonts */; };
 		DA728DC21CBB7786007D7EFB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = DA728DC11CBB7786007D7EFB /* Images */; };
+		DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		DA728DB71CBB75F3007D7EFB /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		DA728DC11CBB7786007D7EFB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		E060F0C17D5656BE3C2519B2 /* Pods-CurrencyPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyPlus.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyPlus/Pods-CurrencyPlus.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,9 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				DA728D991CBB6D93007D7EFB /* AppDelegate.swift */,
-				DA3B44A11CBB7C290074A07E /* LoginViewController.swift */,
 				DA728DAB1CBB6E0E007D7EFB /* Base.swift */,
+				DA3B44A11CBB7C290074A07E /* LoginViewController.swift */,
 				DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */,
+				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA728D9D1CBB6D93007D7EFB /* Main.storyboard */,
 				DA728DC11CBB7786007D7EFB /* Images */,
 				DA728DB71CBB75F3007D7EFB /* Fonts */,
@@ -226,6 +229,7 @@
 			files = (
 				DA3B44A21CBB7C290074A07E /* LoginViewController.swift in Sources */,
 				DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */,
+				DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */,
 				DA728DAC1CBB6E0E007D7EFB /* Base.swift in Sources */,
 				DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */,
 			);

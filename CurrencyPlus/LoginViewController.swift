@@ -60,6 +60,17 @@ class LoginViewController: UIViewController {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
+    
+    /* Sends over the username and password to the User Info VC */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "mainPageSegue" {
+            // Create a variable that you want to send
+            let userInfo = ["userName": loginEmail.text!, "password": loginPassword.text!]
+
+            let userInfoVC = segue.destinationViewController as! UserInfoViewController
+            userInfoVC.userInfo = userInfo
+        }
+    }
 
     /*
     // MARK: - Navigation

@@ -54,7 +54,7 @@ class CreateAccountViewController: UIViewController {
                                 print("Successfully created user account with uid: \(uid)")
                                 print(result)
                                 */
-                                self.performSegueWithIdentifier("createAccount", sender: sender)
+                                self.performSegueWithIdentifier("createAccount", sender: self)
                             }
             })
         } else {
@@ -69,6 +69,8 @@ class CreateAccountViewController: UIViewController {
         return result
     }
     
+}
+
     /*
     // MARK: - Navigation
 
@@ -79,4 +81,4 @@ class CreateAccountViewController: UIViewController {
     }
     */
 
-}
+
