@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SCLAlertView
 
 class UserInfoViewController: UIViewController, UITextFieldDelegate {
     
@@ -114,6 +115,20 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     }
     /* End comment block */
     
+    /* Sends message to bring up notification in LoginVC */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "backToLoginSegue" {
+            // Create a variable that you want to send
+            let showNotification = 1
+            let loginVC = segue.destinationViewController as! LoginViewController
+            loginVC.showNotification = showNotification
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        let alert = SCLAlertView()
+        alert.showSuccess("", subTitle: "Account successfully created.")
+    }
     /*
      // MARK: - Navigation
      

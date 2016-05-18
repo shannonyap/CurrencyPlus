@@ -7,5 +7,6 @@ target 'CurrencyPlus' do
 pod 'Firebase', '>= 2.5.1'
 pod 'SwiftyButton'
 pod "TextFieldEffects"
+pod "SCLAlertView"
 end
 

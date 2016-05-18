@@ -1,6 +1,7 @@
 PODS:
   - Firebase (2.5.1)
   - PureLayout (3.0.1)
+  - SCLAlertView (0.5.6)
   - SwiftyButton (0.4.0):
     - SwiftyButton/CustomContent (= 0.4.0)
   - SwiftyButton/CustomContent (0.4.0):
@@ -9,13 +10,17 @@ PODS:
 
 DEPENDENCIES:
   - Firebase (>= 2.5.1)
+  - SCLAlertView
   - SwiftyButton
   - TextFieldEffects
 
 SPEC CHECKSUMS:
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
+  SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
   SwiftyButton: fffcc0d82b2b5f9ec1681f20ee9c67bed0d5c73b
   TextFieldEffects: bc4fd3bd557321bd61a0762f3f50965477a36f62
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: fd69fa45f7327a62f061754159a619f67d75f722
+
+COCOAPODS: 1.0.0

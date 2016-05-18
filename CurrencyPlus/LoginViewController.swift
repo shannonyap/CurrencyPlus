@@ -8,12 +8,16 @@
 
 import UIKit
 import Firebase
+import SCLAlertView
 
 struct Constants {
     static let firebaseUrl = "https://currencyplus.firebaseio.com/"
 }
 
 class LoginViewController: UIViewController {
+    
+    var showNotification = 0
+    
     @IBOutlet weak var loginEmail: UITextField!
     @IBOutlet weak var loginPassword: UITextField!
     @IBOutlet weak var loginEmailError: UILabel!
@@ -47,9 +51,16 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CreateAccountViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(animated: Bool) {
+        if showNotification == 1 {
+            let alert = SCLAlertView()
+            alert.showSuccess("", subTitle: "User Info added.")
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

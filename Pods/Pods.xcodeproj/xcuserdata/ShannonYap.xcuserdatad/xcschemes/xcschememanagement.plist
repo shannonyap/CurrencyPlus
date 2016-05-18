@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SCLAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftyButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,27 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>8612A7D3E3F3441B014F100125C48CE8</key>
+		<key>303A021E85FB48D0108024F2F66B2E30</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>94740E00FF670063CD3976F0173C9D63</key>
+		<key>421DC52DB1F02A12A1861A85239D4C10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>571025F828BD9071834EA1628F110FB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5A3CF976F7EA7A9DA06B313819B29E3D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B080C2953482A87A8457C760F7CA7384</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B7AC9326D819482593FE118E915409D7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F3085629DDAB4B0939BAFC32E6348EA4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F526AF00C346677CB20449E5B22C1A7B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
