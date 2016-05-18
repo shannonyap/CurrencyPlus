@@ -54,7 +54,7 @@ class CreateAccountViewController: UIViewController {
                                 print("Successfully created user account with uid: \(uid)")
                                 print(result)
                                 */
-                                self.performSegueWithIdentifier("createAccount", sender: self)
+                                self.performSegueWithIdentifier("UserInfoSegue", sender: nil)
                             }
             })
         } else {
@@ -67,6 +67,17 @@ class CreateAccountViewController: UIViewController {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         let result = emailTest.evaluateWithObject(testStr)
         return result
+    }
+    
+    /* Sends over the username and password to the User Info VC */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if segue.identifier == "UserInfoSegue" {
+            // Create a variable that you want to send
+            let userInfo = ["userName": email.text!, "password": password.text!]
+            
+            let userInfoVC = segue.destinationViewController as! UserInfoViewController
+            userInfoVC.userInfo = userInfo
+        }
     }
     
 }

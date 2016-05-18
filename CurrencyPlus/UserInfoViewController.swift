@@ -59,6 +59,8 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
                     //  - https://<YOUR-FIREBASE-APP>.firebaseio.com/users/<uid>
                     ref.childByAppendingPath("users")
                         .childByAppendingPath(authData.uid).setValue(newUser)
+                    
+                    self.performSegueWithIdentifier("backToLoginSegue", sender: nil)
                 }
             }
         }
@@ -93,7 +95,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     
     /* These functions shift the chosen textfield up by 50px to prevent the keyboard from covering it. */
     func textFieldDidBeginEditing(textField: UITextField) {
-        print("dsafjhds")
         animateViewMoving(true, moveValue: 20)
     }
     
