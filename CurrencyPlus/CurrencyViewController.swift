@@ -1,30 +1,27 @@
 //
-//  MainPageViewController.swift
+//  CurrencyViewController.swift
 //  CurrencyPlus
 //
-//  Created by Shannon Yap on 5/18/16.
+//  Created by Shannon Yap on 5/21/16.
 //  Copyright © 2016 SYXH. All rights reserved.
 //
 
 import UIKit
 import BTNavigationDropdownMenu
 
-class MainPageViewController: UIViewController {
-    
-    @IBOutlet weak var selectedCellLabel: UILabel!
+class CurrencyViewController: UIViewController {
+
     var menuView: BTNavigationDropdownMenu!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-
-        let items = ["Favorites", "Currency Converter", "Settings"]
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 60/255.0, green:65/255.0, blue:71/255.0, alpha: 1.0)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         
-        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[0], items: items)
+        let items = DropDownMenuNavBarOptions.items
+        navBarDefaults()
+
+        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[1], items: items)
         menuView.cellHeight = 40
         menuView.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
         menuView.cellSelectionColor = UIColor(red: 50/255.0, green:53/255.0, blue:60/255.0, alpha: 1.0)
@@ -33,19 +30,22 @@ class MainPageViewController: UIViewController {
         menuView.checkMarkImage = nil;
         menuView.animationDuration = 0.25
         menuView.didSelectItemAtIndexHandler = {(indexPath: Int) -> () in
-            print("Did select item at index: \(indexPath)")
+            if (indexPath == 0) {
+                let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainPageTableViewController") as! MainPageTableViewController
+                let nav = UINavigationController(rootViewController: homeViewController)
+                appdelegate.window!.rootViewController = nav
+            }
         }
         
         self.navigationItem.titleView = menuView
-        
         // Do any additional setup after loading the view.
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
-        
     }
     
     override func didReceiveMemoryWarning() {

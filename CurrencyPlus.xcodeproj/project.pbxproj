@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		D735D1C4773AC32F9D736B7E /* Pods_CurrencyPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BAAF13190AFDBDD159BEF2 /* Pods_CurrencyPlus.framework */; };
 		DA3B44A21CBB7C290074A07E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B44A11CBB7C290074A07E /* LoginViewController.swift */; };
+		DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50C5111CF010070018B164 /* MainPageTableViewController.swift */; };
+		DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */; };
+		DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */; };
 		DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728D991CBB6D93007D7EFB /* AppDelegate.swift */; };
 		DA728D9F1CBB6D93007D7EFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA728D9D1CBB6D93007D7EFB /* Main.storyboard */; };
 		DA728DA11CBB6D93007D7EFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA728DA01CBB6D93007D7EFB /* Assets.xcassets */; };
@@ -17,7 +20,6 @@
 		DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */; };
 		DA728DB81CBB75F3007D7EFB /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = DA728DB71CBB75F3007D7EFB /* Fonts */; };
 		DA728DC21CBB7786007D7EFB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = DA728DC11CBB7786007D7EFB /* Images */; };
-		DAB633751CED23BB0080811C /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB633741CED23BB0080811C /* MainPageViewController.swift */; };
 		DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,6 +28,9 @@
 		9A8E8D253F1BBA8C763E3065 /* Pods-CurrencyPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyPlus.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyPlus/Pods-CurrencyPlus.release.xcconfig"; sourceTree = "<group>"; };
 		9BAC9BBB9C1D00B24A926337 /* Pods-CurrencyPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyPlus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyPlus/Pods-CurrencyPlus.debug.xcconfig"; sourceTree = "<group>"; };
 		DA3B44A11CBB7C290074A07E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		DA50C5111CF010070018B164 /* MainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageTableViewController.swift; sourceTree = "<group>"; };
+		DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListTableViewController.swift; sourceTree = "<group>"; };
+		DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		DA728D961CBB6D93007D7EFB /* CurrencyPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA728D991CBB6D93007D7EFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA728D9E1CBB6D93007D7EFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -36,7 +41,6 @@
 		DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		DA728DB71CBB75F3007D7EFB /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		DA728DC11CBB7786007D7EFB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
-		DAB633741CED23BB0080811C /* MainPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,8 +97,10 @@
 				DA728D991CBB6D93007D7EFB /* AppDelegate.swift */,
 				DA728DAB1CBB6E0E007D7EFB /* Base.swift */,
 				DA3B44A11CBB7C290074A07E /* LoginViewController.swift */,
-				DAB633741CED23BB0080811C /* MainPageViewController.swift */,
+				DA50C5111CF010070018B164 /* MainPageTableViewController.swift */,
+				DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */,
 				DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */,
+				DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */,
 				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA728D9D1CBB6D93007D7EFB /* Main.storyboard */,
 				DA728DC11CBB7786007D7EFB /* Images */,
@@ -231,10 +237,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA3B44A21CBB7C290074A07E /* LoginViewController.swift in Sources */,
+				DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */,
 				DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */,
 				DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */,
 				DA728DAC1CBB6E0E007D7EFB /* Base.swift in Sources */,
-				DAB633751CED23BB0080811C /* MainPageViewController.swift in Sources */,
+				DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */,
+				DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */,
 				DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
