@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>BTNavigationDropdownMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Firebase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -14,17 +19,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>PureLayout.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>SCLAlertView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftyButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,32 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>303A021E85FB48D0108024F2F66B2E30</key>
+		<key>052C8FA63FDE801E5B463D6C376B4224</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>421DC52DB1F02A12A1861A85239D4C10</key>
+		<key>1055CF5A286D2E55AA5886E6E98E1E65</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>571025F828BD9071834EA1628F110FB5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5A3CF976F7EA7A9DA06B313819B29E3D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B080C2953482A87A8457C760F7CA7384</key>
+		<key>3232145999B3739E73FFE3C956A6D0B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>B7AC9326D819482593FE118E915409D7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD23F1DA220A44C7E84F356B64871271</key>
 		<dict>
 			<key>primary</key>
 			<true/>

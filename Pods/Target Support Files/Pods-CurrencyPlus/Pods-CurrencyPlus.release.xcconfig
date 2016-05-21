@@ -1,9 +1,9 @@
 EMBEDDED_CONTENT_CONTAINS_SWIFT = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/Firebase" "$PODS_CONFIGURATION_BUILD_DIR/PureLayout" "$PODS_CONFIGURATION_BUILD_DIR/SCLAlertView" "$PODS_CONFIGURATION_BUILD_DIR/SwiftyButton" "$PODS_CONFIGURATION_BUILD_DIR/TextFieldEffects"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/BTNavigationDropdownMenu" "$PODS_CONFIGURATION_BUILD_DIR/Firebase" "$PODS_CONFIGURATION_BUILD_DIR/SCLAlertView" "$PODS_CONFIGURATION_BUILD_DIR/TextFieldEffects"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/Firebase/Firebase.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/PureLayout/PureLayout.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SCLAlertView/SCLAlertView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SwiftyButton/SwiftyButton.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TextFieldEffects/TextFieldEffects.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -ObjC -framework "Firebase" -framework "PureLayout" -framework "SCLAlertView" -framework "SwiftyButton" -framework "TextFieldEffects"
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/BTNavigationDropdownMenu/BTNavigationDropdownMenu.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/Firebase/Firebase.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/SCLAlertView/SCLAlertView.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TextFieldEffects/TextFieldEffects.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "BTNavigationDropdownMenu" -framework "Firebase" -framework "SCLAlertView" -framework "TextFieldEffects"
 OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
