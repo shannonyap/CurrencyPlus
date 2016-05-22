@@ -69,8 +69,7 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CreateAccountViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        addTapGesture()
         
         phoneNumberLabel.delegate = self
         // Do any additional setup after loading the view.
@@ -79,11 +78,6 @@ class UserInfoViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-        view.endEditing(true)
     }
     
     func isValidPhoneNumber (value: String) -> Bool {

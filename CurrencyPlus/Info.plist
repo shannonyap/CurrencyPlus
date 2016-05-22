@@ -29,6 +29,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Quicksand-Regular.ttf</string>
+		<string>BebasNeueLight.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

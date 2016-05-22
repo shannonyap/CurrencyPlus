@@ -422,7 +422,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Elo-Z6-GIm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1706" y="1658"/>
+            <point key="canvasLocation" x="1705" y="1657"/>
         </scene>
         <!--Country List Table View Controller-->
         <scene sceneID="7yQ-xj-LmY">
