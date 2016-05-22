@@ -1,5 +1,5 @@
 //
-//  CurrencyViewController.swift
+//  SettingsViewController.swift
 //  CurrencyPlus
 //
 //  Created by Shannon Yap on 5/21/16.
@@ -9,18 +9,19 @@
 import UIKit
 import BTNavigationDropdownMenu
 
-class CurrencyViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
     var menuView: BTNavigationDropdownMenu!
-    let currentIndex = 1
+    let currentIndex = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         let items = DropDownMenuNavBarOptions.items
         navBarDefaults()
-        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[1], items: items)
+        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[2], items: items)
         menuView.cellHeight = 40
         menuView.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
         menuView.cellSelectionColor = UIColor(red: 50/255.0, green:53/255.0, blue:60/255.0, alpha: 1.0)
@@ -40,9 +41,11 @@ class CurrencyViewController: UIViewController {
         }
         
         self.navigationItem.titleView = menuView
+
+        
         // Do any additional setup after loading the view.
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         menuView.hide()
     }

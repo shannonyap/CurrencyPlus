@@ -12,6 +12,7 @@
 		DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50C5111CF010070018B164 /* MainPageTableViewController.swift */; };
 		DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */; };
 		DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */; };
+		DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */; };
 		DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728D991CBB6D93007D7EFB /* AppDelegate.swift */; };
 		DA728D9F1CBB6D93007D7EFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA728D9D1CBB6D93007D7EFB /* Main.storyboard */; };
 		DA728DA11CBB6D93007D7EFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA728DA01CBB6D93007D7EFB /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		DA50C5111CF010070018B164 /* MainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageTableViewController.swift; sourceTree = "<group>"; };
 		DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListTableViewController.swift; sourceTree = "<group>"; };
 		DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
+		DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA728D961CBB6D93007D7EFB /* CurrencyPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA728D991CBB6D93007D7EFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA728D9E1CBB6D93007D7EFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				DA3B44A11CBB7C290074A07E /* LoginViewController.swift */,
 				DA50C5111CF010070018B164 /* MainPageTableViewController.swift */,
 				DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */,
+				DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */,
 				DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */,
 				DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */,
 				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
@@ -244,6 +247,7 @@
 				DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */,
 				DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */,
 				DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */,
+				DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

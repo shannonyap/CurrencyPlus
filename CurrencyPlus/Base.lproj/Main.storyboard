@@ -388,6 +388,24 @@
             </objects>
             <point key="canvasLocation" x="1697" y="986"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="Okf-Y3-5ln">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="FZM-7Z-0dj" customClass="SettingsViewController" customModule="CurrencyPlus" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KFV-1f-4lj"/>
+                        <viewControllerLayoutGuide type="bottom" id="mXc-kI-Dpg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bhK-H7-4om">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mq1-1S-BRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1020" y="1836"/>
+        </scene>
         <!--Currency View Controller-->
         <scene sceneID="VjO-fe-cbq">
             <objects>
@@ -415,7 +433,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zJ3-wo-TIT">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Country" id="zJ3-wo-TIT">
                                 <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zJ3-wo-TIT" id="aMC-0h-nBa">

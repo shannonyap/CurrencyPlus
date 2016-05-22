@@ -19,11 +19,28 @@ extension UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 60/255.0, green:65/255.0, blue:71/255.0, alpha: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
     }
+    
+    func viewControllerSwitch(indexPath: Int) {
+        let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        var homeViewController = UIViewController()
+        if (indexPath == 0) {
+            homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainPageTableViewController") as! MainPageTableViewController
+        } else if (indexPath == 1 ) {
+            homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("CurrencyViewController") as! CurrencyViewController
+        } else if (indexPath == 2) {
+            homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
+        }
+        let nav = UINavigationController(rootViewController: homeViewController)
+        appdelegate.window!.rootViewController = nav
+    }
 }
 
 class MainPageTableViewController: UITableViewController {
 
     var menuView: BTNavigationDropdownMenu!
+    let currentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +50,7 @@ class MainPageTableViewController: UITableViewController {
         let items = DropDownMenuNavBarOptions.items
         navBarDefaults()
         
-        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[0], items: items)
+        menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[currentIndex], items: items)
         menuView.cellHeight = 40
         menuView.cellBackgroundColor = self.navigationController?.navigationBar.barTintColor
         menuView.cellSelectionColor = UIColor(red: 50/255.0, green:53/255.0, blue:60/255.0, alpha: 1.0)
@@ -41,13 +58,14 @@ class MainPageTableViewController: UITableViewController {
         menuView.cellTextLabelFont = UIFont(name: "Avenir-Heavy", size: 14)
         menuView.checkMarkImage = nil;
         menuView.animationDuration = 0.25
+        
+        if (!menuView.isShown){
+            menuView.show()
+        }
+        
         menuView.didSelectItemAtIndexHandler = {(indexPath: Int) -> () in
-            if (indexPath == 1) {
-                let appdelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("CurrencyViewController") as! CurrencyViewController
-                let nav = UINavigationController(rootViewController: homeViewController)
-                appdelegate.window!.rootViewController = nav
+            if (self.currentIndex != indexPath) {
+                self.viewControllerSwitch(indexPath)
             }
         }
     
@@ -80,6 +98,10 @@ class MainPageTableViewController: UITableViewController {
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
     }
 
+    override func viewWillAppear(animated: Bool) {
+        self.menuView.hide()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -91,7 +113,6 @@ class MainPageTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 5
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
