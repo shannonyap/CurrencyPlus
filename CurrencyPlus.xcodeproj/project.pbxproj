@@ -13,6 +13,7 @@
 		DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */; };
 		DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */; };
 		DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */; };
+		DA56A6021CF163B700C42138 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */; };
 		DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728D991CBB6D93007D7EFB /* AppDelegate.swift */; };
 		DA728D9F1CBB6D93007D7EFB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA728D9D1CBB6D93007D7EFB /* Main.storyboard */; };
 		DA728DA11CBB6D93007D7EFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA728DA01CBB6D93007D7EFB /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListTableViewController.swift; sourceTree = "<group>"; };
 		DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "Fonts/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		DA728D961CBB6D93007D7EFB /* CurrencyPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA728D991CBB6D93007D7EFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA728D9E1CBB6D93007D7EFB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */,
 				DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */,
 				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
+				DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */,
 				DA728D9D1CBB6D93007D7EFB /* Main.storyboard */,
 				DA728DC11CBB7786007D7EFB /* Images */,
 				DA728DB71CBB75F3007D7EFB /* Fonts */,
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA728DC21CBB7786007D7EFB /* Images in Resources */,
+				DA56A6021CF163B700C42138 /* Quicksand-Regular.ttf in Resources */,
 				DA728DB81CBB75F3007D7EFB /* Fonts in Resources */,
 				DA728DA41CBB6D93007D7EFB /* LaunchScreen.storyboard in Resources */,
 				DA728DA11CBB6D93007D7EFB /* Assets.xcassets in Resources */,
