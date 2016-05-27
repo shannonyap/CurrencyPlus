@@ -38,20 +38,20 @@ class CurrencyViewController: UIViewController {
         let url = NSURL(string: Constants.jsonUrl)
         let request = NSURLRequest(URL: url!)
         
-        /* GET HTTP response. */
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
-            let datastring = NSString(data:data!, encoding:NSUTF8StringEncoding) as! String
-            let firebaseDictionary: Dictionary? = self.convertStringToDictionary(datastring)
-            
-            /* Adds the json Currencies into firebase if it doesn't have it already. */
-            ref.observeEventType(.Value, withBlock: { snapshot in
-                if !(snapshot.exists()) {
+        /* Adds the json Currencies into firebase if it doesn't have it already. */
+        ref.observeEventType(.Value, withBlock: { snapshot in
+            if !(snapshot.exists()) {
+                /* GET HTTP response. */
+                NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
+                    let datastring = NSString(data:data!, encoding:NSUTF8StringEncoding) as! String
+                    let firebaseDictionary: Dictionary? = self.convertStringToDictionary(datastring)
                     ref.childByAppendingPath("jsonCurrencies").setValue(firebaseDictionary)
                 }
-                }, withCancelBlock: { error in
-                    print(error.description)
-            })
-        }
+            }
+            }, withCancelBlock: { error in
+                print(error.description)
+        })
+        
         
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
