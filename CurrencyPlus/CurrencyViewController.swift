@@ -9,6 +9,7 @@
 import UIKit
 import BTNavigationDropdownMenu
 import TextFieldEffects
+import Firebase
 
 extension UIColor {
     class func getTextFieldColor() -> UIColor {
@@ -24,11 +25,6 @@ extension UIColor {
     }
 }
 
-struct TextFieldConstants {
-    static let textFieldWidth: CGFloat = 125.0
-    static let textFieldHeight: CGFloat = 50.0
-}
-
 class CurrencyViewController: UIViewController {
 
     var menuView: BTNavigationDropdownMenu!
@@ -39,9 +35,27 @@ class CurrencyViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        let url = NSURL(string: Constants.jsonUrl)
+        let request = NSURLRequest(URL: url!)
+        
+        /* GET HTTP response. */
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
+            let datastring = NSString(data:data!, encoding:NSUTF8StringEncoding) as! String
+            let firebaseDictionary: Dictionary? = self.convertStringToDictionary(datastring)
+            
+            /* Adds the json Currencies into firebase if it doesn't have it already. */
+            ref.observeEventType(.Value, withBlock: { snapshot in
+                if !(snapshot.exists()) {
+                    ref.childByAppendingPath("jsonCurrencies").setValue(firebaseDictionary)
+                }
+                }, withCancelBlock: { error in
+                    print(error.description)
+            })
+        }
+        
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
-        let items = DropDownMenuNavBarOptions.items
+        let items = Constants.items
         navBarDefaults()
         menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[currentIndex], items: items)
         menuView.dropDownMenuDefaults(menuView)
@@ -63,9 +77,9 @@ class CurrencyViewController: UIViewController {
         let secondCurrView = makeCurrViews(UIColor(red: 243/255.0, green: 66/255.0, blue: 64/255.0, alpha: 1.0), customFrame: CGRect(x: 0, y: firstCurrView.bounds.height, width: self.view.bounds.width, height: self.view.bounds.height * 0.2))
         let dividerLine = makeCurrViews(UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0), customFrame: CGRect(x: 0, y: 2 * firstCurrView.bounds.height, width: firstCurrView.bounds.width, height: 2))
         
-        let firstTextField = makeCurrTextFields(1, activeColor: UIColor.getTextFieldColor() ,customFrame: CGRect(x: firstCurrView.bounds.size.width/2 + (firstCurrView.bounds.size.width/2 - TextFieldConstants.textFieldWidth) / 2, y: firstCurrView.frame.origin.y + (firstCurrView.bounds.size.height - TextFieldConstants.textFieldHeight) / 2, width: TextFieldConstants.textFieldWidth, height: TextFieldConstants.textFieldHeight))
+        let firstTextField = makeCurrTextFields(1, activeColor: UIColor.getTextFieldColor() ,customFrame: CGRect(x: firstCurrView.bounds.size.width/2 + (firstCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: firstCurrView.frame.origin.y + (firstCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
         
-        let secondTextField = makeCurrTextFields(2, activeColor: UIColor.whiteColor() ,customFrame: CGRect(x: secondCurrView.bounds.size.width/2 + (secondCurrView.bounds.size.width/2 - TextFieldConstants.textFieldWidth) / 2, y: secondCurrView.frame.origin.y + (secondCurrView.bounds.size.height - TextFieldConstants.textFieldHeight) / 2, width: TextFieldConstants.textFieldWidth, height: TextFieldConstants.textFieldHeight))
+        let secondTextField = makeCurrTextFields(2, activeColor: UIColor.whiteColor() ,customFrame: CGRect(x: secondCurrView.bounds.size.width/2 + (secondCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: secondCurrView.frame.origin.y + (secondCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
         
         let xcoord: CGFloat = 0
         let ycoord = dividerLine.frame.origin.y + dividerLine.bounds.size.height
@@ -167,6 +181,19 @@ class CurrencyViewController: UIViewController {
         
     }
 
+    /* Used to get the dictionary of currency information */
+    func convertStringToDictionary(text: String) -> [String:AnyObject]? {
+        if let data = text.dataUsingEncoding(NSUTF8StringEncoding) {
+            do {
+                return try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String:AnyObject]
+            } catch let error as NSError {
+                print(error)
+            }
+        }
+        return nil
+    }
+    
+    
     /*
     // MARK: - Navigation
 

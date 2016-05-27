@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
 
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
-        let items = DropDownMenuNavBarOptions.items
+        let items = Constants.items
         navBarDefaults()
         menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[currentIndex], items: items)
         menuView.dropDownMenuDefaults(menuView)

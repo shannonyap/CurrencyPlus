@@ -12,6 +12,10 @@ import SCLAlertView
 
 struct Constants {
     static let firebaseUrl = "https://currencyplus.firebaseio.com/"
+    static var items = ["Favorites", "Currency Converter", "Settings"]
+    static let textFieldWidth: CGFloat = 125.0
+    static let textFieldHeight: CGFloat = 50.0
+    static let jsonUrl = "http://www.localeplanet.com/api/auto/currencymap.json?name=Y"
 }
 
 class LoginViewController: UIViewController {

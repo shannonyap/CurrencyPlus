@@ -9,10 +9,6 @@
 import UIKit
 import BTNavigationDropdownMenu
 
-struct DropDownMenuNavBarOptions {
-    static var items = ["Favorites", "Currency Converter", "Settings"]
-}
-
 extension BTNavigationDropdownMenu {
     func dropDownMenuDefaults (menuView: BTNavigationDropdownMenu) {
         menuView.cellSelectionColor = UIColor(red: 50/255.0, green:53/255.0, blue:60/255.0, alpha: 1.0)
@@ -67,7 +63,7 @@ class MainPageTableViewController: UITableViewController {
 
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
-        let items = DropDownMenuNavBarOptions.items
+        let items = Constants.items
         navBarDefaults()
 
         menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, title: items[currentIndex], items: items)
