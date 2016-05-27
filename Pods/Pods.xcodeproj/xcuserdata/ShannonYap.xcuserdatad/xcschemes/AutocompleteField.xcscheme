@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '56CDF230DFF747E82033BD633E31F554'
-               BlueprintName = 'SCLAlertView'
+               BlueprintIdentifier = '6F56194ECD4A2A535883737959DC4637'
+               BlueprintName = 'AutocompleteField'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SCLAlertView.framework'>
+               BuildableName = 'AutocompleteField.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

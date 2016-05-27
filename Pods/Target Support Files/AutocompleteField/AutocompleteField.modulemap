@@ -1,0 +1,6 @@
+framework module AutocompleteField {
+  umbrella header "AutocompleteField-umbrella.h"
+
+  export *
+  module * { export * }
+}

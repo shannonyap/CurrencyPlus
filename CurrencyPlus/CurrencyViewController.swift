@@ -10,6 +10,7 @@ import UIKit
 import BTNavigationDropdownMenu
 import TextFieldEffects
 import Firebase
+import AutocompleteField
 
 extension UIColor {
     class func getTextFieldColor() -> UIColor {
@@ -61,10 +62,14 @@ class CurrencyViewController: UIViewController {
         let secondCurrView = makeCurrViews(UIColor(red: 243/255.0, green: 66/255.0, blue: 64/255.0, alpha: 1.0), customFrame: CGRect(x: 0, y: firstCurrView.bounds.height, width: self.view.bounds.width, height: self.view.bounds.height * 0.2))
         let dividerLine = makeCurrViews(UIColor(red: 200/255.0, green: 200/255.0, blue: 200/255.0, alpha: 1.0), customFrame: CGRect(x: 0, y: 2 * firstCurrView.bounds.height, width: firstCurrView.bounds.width, height: 2))
         
-        let firstTextField = makeCurrTextFields(1, activeColor: UIColor.getTextFieldColor() ,customFrame: CGRect(x: firstCurrView.bounds.size.width/2 + (firstCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: firstCurrView.frame.origin.y + (firstCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
+        let firstTextField = makeCurrTextFields(1, activeColor: UIColor.getTextFieldColor() ,customFrame: CGRect(x: firstCurrView.bounds.size.width / 2 + (firstCurrView.bounds.size.width / 2 - Constants.textFieldWidth) / 2, y: firstCurrView.frame.origin.y + (firstCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
         
-        let secondTextField = makeCurrTextFields(2, activeColor: UIColor.whiteColor() ,customFrame: CGRect(x: secondCurrView.bounds.size.width/2 + (secondCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: secondCurrView.frame.origin.y + (secondCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
+        let secondTextField = makeCurrTextFields(2, activeColor: UIColor.whiteColor() ,customFrame: CGRect(x: secondCurrView.bounds.size.width / 2 + (secondCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: secondCurrView.frame.origin.y + (secondCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
         
+        let BaseCurrencySearch = makeCurrencySearchFields(["Abraham", "George", "Franklin"], customFrame: CGRectMake(firstCurrView.bounds.size.width/4 - Constants.textFieldWidth / 2 , firstTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Base Currency")
+        
+        let SelectedCurrencySearch = makeCurrencySearchFields(["Abraham", "George", "Franklin"], customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Chosen Currency")
+
         let xcoord: CGFloat = 0
         let ycoord = dividerLine.frame.origin.y + dividerLine.bounds.size.height
         let width = self.view.bounds.size.width / 3
@@ -87,12 +92,14 @@ class CurrencyViewController: UIViewController {
             }
             self.view.addSubview(button)
         }
-        
+      
         self.view.addSubview(firstCurrView)
         self.view.addSubview(secondCurrView)
         self.view.addSubview(dividerLine)
         self.view.addSubview(firstTextField)
         self.view.addSubview(secondTextField)
+        self.view.addSubview(BaseCurrencySearch)
+        self.view.addSubview(SelectedCurrencySearch)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -129,6 +136,14 @@ class CurrencyViewController: UIViewController {
         theCurrTextField.textAlignment = NSTextAlignment.Right
         
         return theCurrTextField
+    }
+    
+    func makeCurrencySearchFields (suggestions: NSArray, customFrame: CGRect, placeHolderText: String) -> AutocompleteField {
+        let currSearchField = AutocompleteField(frame: customFrame, suggestions: suggestions as! [String])
+        currSearchField.placeholder = placeHolderText
+        currSearchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
+        
+        return currSearchField
     }
     
     func makeNumberPad (buttonId: Int, buttonTitle: String, customFrame: CGRect) -> UIButton {

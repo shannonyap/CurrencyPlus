@@ -1,21 +1,24 @@
 PODS:
+  - AutocompleteField (1.1)
   - BTNavigationDropdownMenu (0.3)
   - Firebase (2.5.1)
   - SCLAlertView (0.5.6)
   - TextFieldEffects (1.2.0)
 
 DEPENDENCIES:
+  - AutocompleteField (~> 1.1)
   - BTNavigationDropdownMenu
   - Firebase (>= 2.5.1)
   - SCLAlertView
   - TextFieldEffects
 
 SPEC CHECKSUMS:
+  AutocompleteField: 212b36bef0218f22c05d80035be2d382acd5a4e2
   BTNavigationDropdownMenu: c36d20785253699046fdd295698c24b1d1c18f53
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
   SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
   TextFieldEffects: bc4fd3bd557321bd61a0762f3f50965477a36f62
 
-PODFILE CHECKSUM: 4beb25cee53e52dfa66b904e5e62f15ea78c2daf
+PODFILE CHECKSUM: c17b2bbcbb3e28d207d319bb64b76d274a66de4d
 
 COCOAPODS: 1.0.0
