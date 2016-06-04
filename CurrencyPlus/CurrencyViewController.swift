@@ -27,6 +27,7 @@ extension UIColor {
 }
 
 class CurrencyViewController: UIViewController, UITextFieldDelegate {
+    var activeTextField = UITextField()
     var searchTerms: [String] = []
     var menuView: BTNavigationDropdownMenu!
     let currentIndex = 1
@@ -68,9 +69,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         
         let secondTextField = makeCurrTextFields(2, activeColor: UIColor.whiteColor() ,customFrame: CGRect(x: secondCurrView.bounds.size.width / 2 + (secondCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: secondCurrView.frame.origin.y + (secondCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
         
-        let BaseCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(firstCurrView.bounds.size.width/4 - Constants.textFieldWidth / 2 , firstTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Base Currency")
+        let BaseCurrencySearch = makeCurrencySearchFields(1, suggestions: self.searchTerms, customFrame: CGRectMake(firstCurrView.bounds.size.width/4 - Constants.textFieldWidth / 2 , firstTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Base Currency")
         
-        let SelectedCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Target Currency")
+        let SelectedCurrencySearch = makeCurrencySearchFields(2, suggestions: self.searchTerms, customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Target Currency")
 
         let xcoord: CGFloat = 0
         let ycoord = dividerLine.frame.origin.y + dividerLine.bounds.size.height
@@ -145,11 +146,13 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         theCurrTextField.font = UIFont(name: "BebasNeueRegular", size: 25.0)
         theCurrTextField.inputView = UIView() /* Disable keyboard for text field */
         theCurrTextField.textAlignment = NSTextAlignment.Right
+        theCurrTextField.addTarget(self, action: #selector(CurrencyViewController.ifSelected(_:)), forControlEvents: UIControlEvents.AllTouchEvents)
+        theCurrTextField.tag = textFieldId
         
         return theCurrTextField
     }
     
-    func makeCurrencySearchFields (suggestions: NSArray, customFrame: CGRect, placeHolderText: String) -> AutocompleteField {
+    func makeCurrencySearchFields (searchFieldId: Int, suggestions: NSArray, customFrame: CGRect, placeHolderText: String) -> AutocompleteField {
         let currSearchField = AutocompleteField(frame: customFrame, suggestions: suggestions as! [String])
         currSearchField.placeholder = placeHolderText
         currSearchField.font = UIFont(name: "OpenSans-Light", size: 20.0)
@@ -157,6 +160,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         currSearchField.adjustsFontSizeToFitWidth = true
         currSearchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
         currSearchField.delegate = self
+        currSearchField.tag = searchFieldId
         
         return currSearchField
     }
@@ -169,14 +173,16 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             button.setTitle(buttonTitle, forState: UIControlState.Normal)
             button.titleLabel?.font = UIFont(name: "BebasNeueRegular", size: 30.0)
             button.addTarget(self, action: #selector(CurrencyViewController.appendNumber(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            button.tag = buttonId
         } else if buttonId == 0 {
             button = customImageButtons(button, normalImage: "favorite", highlightedImage: "favoriteSelected", topAndBottomInsets: button.frame.size.height / 4, leftAndRightInsets: button.frame.size.width / 1.65)
         } else if buttonId == 12 {
             button = customImageButtons(button, normalImage: "delete", highlightedImage: "deleteHighlighted", topAndBottomInsets: button.frame.size.height / 3.342, leftAndRightInsets: button.frame.size.width / 2.5)
+            button.addTarget(self, action: #selector(CurrencyViewController.deleteNumber(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         } else if buttonId == 13 {
             button = customImageButtons(button, normalImage: "graph", highlightedImage: "graphHighlighted", topAndBottomInsets: button.frame.size.height / 3.5, leftAndRightInsets: button.frame.size.width / 1.7)
         }
+        button.tag = buttonId
+        
         return button
     }
     
@@ -194,7 +200,25 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func appendNumber(sender: UIButton!) {
-        
+        if sender.tag != 10 && sender.tag != 11 {
+            self.activeTextField.text!.appendContentsOf(String(sender.tag))
+        } else if sender.tag == 10 {
+            if !self.activeTextField.text!.containsString("."){
+                self.activeTextField.text!.appendContentsOf(".")
+            }
+        } else if sender.tag == 11 {
+            self.activeTextField.text!.appendContentsOf("0")
+        }
+    }
+    
+    func deleteNumber (sender: UIButton!) {
+        if self.activeTextField.text!.isNotEmpty {
+            self.activeTextField.text!.removeAtIndex(self.activeTextField.text!.endIndex.predecessor())
+        }
+    }
+    
+    func ifSelected (sender: HoshiTextField) {
+        self.activeTextField = sender
     }
 
     /* Used to get the dictionary of currency information */
@@ -257,27 +281,45 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     /* Function to add the searchTerms to the textField. */
     func textFieldShouldBeginEditing(state: UITextField) -> Bool {
         if let textField = state as? AutocompleteField {
+            if textField.text!.isNotEmpty {
+                textField.textAlignment = NSTextAlignment.Natural
+            }
             textField.suggestions = self.searchTerms
         }
         
         return true
     }
     
-    /* Autocompletes partial typing and then shows the currency code */
+    /* Autocompletes partial typing and then shows the currency code. */
     func textFieldDidEndEditing(textField: UITextField) {
-        if let field = textField as? AutocompleteField
-        {
-            field.text = field.suggestion
+        if let autoCompleteField = textField as? AutocompleteField {
+            autoCompleteField.text = autoCompleteField.suggestion
             ref.childByAppendingPath("jsonCurrencies").observeEventType(.ChildAdded, withBlock: { snapshot in
-                let text: String = field.text!
+                let text: String = autoCompleteField.text!
                 let currencyCode: String = snapshot.value.objectForKey("code")! as! String
                 if text.containsString(currencyCode) {
-                    field.textAlignment = NSTextAlignment.Right
-                    field.text = currencyCode
+                    autoCompleteField.textAlignment = NSTextAlignment.Right
+                    autoCompleteField.text = currencyCode
                 }
             })
+
+            /* Find the textFields for the amount. */
+            var amountTextFieldArray: [HoshiTextField] = []
+            for case let amountTextField as HoshiTextField in self.view.subviews {
+                amountTextFieldArray.append(amountTextField)
+            }
+            if (amountTextFieldArray[1].tag == autoCompleteField.tag) && amountTextFieldArray[0].text!.isEmpty {
+                amountTextFieldArray[1].text = "1"
+            } else if (amountTextFieldArray[0].tag == autoCompleteField.tag) && amountTextFieldArray[1].text!.isEmpty {
+                amountTextFieldArray[0].text = "1"
+            }
+            if amountTextFieldArray[autoCompleteField.tag - 1].text!.isEmpty {
+                // here is where we convert
+            }
         }
     }
+    
+    
     /*
     // MARK: - Navigation
 
