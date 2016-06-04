@@ -30,7 +30,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     var searchTerms: [String] = []
     var menuView: BTNavigationDropdownMenu!
     let currentIndex = 1
-    let numPad = ["fav","1","2","3","4","5","6","7","8","9", ".", "0", "delete"]
+    let numPad = ["fav","1","2","3","4","5","6","7","8","9", ".", "0", "delete", "graph"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +40,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         
         addJSONtoFirebaseDB()
         toDB()
+        
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         let items = Constants.items
@@ -69,7 +70,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         
         let BaseCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(firstCurrView.bounds.size.width/4 - Constants.textFieldWidth / 2 , firstTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Base Currency")
         
-        let SelectedCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Chosen Currency")
+        let SelectedCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Target Currency")
 
         let xcoord: CGFloat = 0
         let ycoord = dividerLine.frame.origin.y + dividerLine.bounds.size.height
@@ -78,7 +79,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         var counter = 0
         for number in numPad {
             var button = UIView()
-            if (Int)(numPad.indexOf(number)!) != 0 {
+            if (Int)(numPad.indexOf(number)!) != 0 &&  (Int)(numPad.indexOf(number)!) != 13 {
                     button = makeNumberPad(numPad.indexOf(number)!, buttonTitle: number, customFrame: CGRect(x: xcoord + width * (CGFloat)((numPad.indexOf(number)! % 3) - 1), y: ycoord + height * (CGFloat)(counter), width: width, height: height))
                 if (Int)(numPad.indexOf(number)!) % 3  == 0 {
                     let borderLine = makeCurrViews(UIColor.getBorderColor(), customFrame: CGRect(x: 0, y: ycoord + height * (CGFloat)(counter), width: self.view.bounds.size.width, height: 0.5))
@@ -88,12 +89,21 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                 }
             } else {
                 /* This is the favorite button */
-                button = makeNumberPad(numPad.indexOf(number)!, buttonTitle: number, customFrame: CGRect(x: xcoord, y: ycoord, width: width * 3, height: height))
-                counter += 1
+                if (Int)(numPad.indexOf(number)!) == 0 {
+                    button = makeNumberPad(numPad.indexOf(number)!, buttonTitle: number, customFrame: CGRect(x: xcoord, y: ycoord, width: width * 1.5, height: height))
+                    counter += 1
+                } else if (Int)(numPad.indexOf(number)!) == 13 {
+                    /* Graph button */
+                    button = makeNumberPad(numPad.indexOf(number)!, buttonTitle: number, customFrame: CGRect(x: width * 1.5, y: ycoord, width: width * 1.5, height: height))
+                    
+                    /* Add a dividing line between the favorite and graph button */
+                    let middleLine = makeCurrViews(UIColor.getBorderColor(), customFrame: CGRect(x: width * 1.5, y: ycoord, width: 0.75, height: height))
+                    self.view.addSubview(middleLine)
+                }
             }
             self.view.addSubview(button)
         }
-      
+        
         self.view.addSubview(firstCurrView)
         self.view.addSubview(secondCurrView)
         self.view.addSubview(dividerLine)
@@ -142,7 +152,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     func makeCurrencySearchFields (suggestions: NSArray, customFrame: CGRect, placeHolderText: String) -> AutocompleteField {
         let currSearchField = AutocompleteField(frame: customFrame, suggestions: suggestions as! [String])
         currSearchField.placeholder = placeHolderText
-        currSearchField.font = UIFont(name: "OpenSans-Light", size: 16.0)
+        currSearchField.font = UIFont(name: "OpenSans-Light", size: 20.0)
+        currSearchField.minimumFontSize = 8;
+        currSearchField.adjustsFontSizeToFitWidth = true
         currSearchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
         currSearchField.delegate = self
         
@@ -151,7 +163,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     func makeNumberPad (buttonId: Int, buttonTitle: String, customFrame: CGRect) -> UIButton {
         var button = UIButton(frame: customFrame)
-        if buttonId != 12 && buttonId != 0 {
+        if buttonId != 12 && buttonId != 0  && buttonId != 13{
             button.setTitleColor(UIColor.getTextFieldColor(), forState: UIControlState.Normal)
             button.setTitleColor(UIColor.getHighlightedButtonColor(), forState: UIControlState.Highlighted)
             button.setTitle(buttonTitle, forState: UIControlState.Normal)
@@ -159,9 +171,11 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             button.addTarget(self, action: #selector(CurrencyViewController.appendNumber(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             button.tag = buttonId
         } else if buttonId == 0 {
-            button = customImageButtons(button, normalImage: "favorite", highlightedImage: "favoriteSelected", topAndBottomInsets: button.frame.size.height / 4.4, leftAndRightInsets: button.frame.size.width / 1.8)
+            button = customImageButtons(button, normalImage: "favorite", highlightedImage: "favoriteSelected", topAndBottomInsets: button.frame.size.height / 4, leftAndRightInsets: button.frame.size.width / 1.65)
         } else if buttonId == 12 {
             button = customImageButtons(button, normalImage: "delete", highlightedImage: "deleteHighlighted", topAndBottomInsets: button.frame.size.height / 3.342, leftAndRightInsets: button.frame.size.width / 2.5)
+        } else if buttonId == 13 {
+            button = customImageButtons(button, normalImage: "graph", highlightedImage: "graphHighlighted", topAndBottomInsets: button.frame.size.height / 3.5, leftAndRightInsets: button.frame.size.width / 1.7)
         }
         return button
     }
@@ -258,6 +272,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                 let text: String = field.text!
                 let currencyCode: String = snapshot.value.objectForKey("code")! as! String
                 if text.containsString(currencyCode) {
+                    field.textAlignment = NSTextAlignment.Right
                     field.text = currencyCode
                 }
             })
