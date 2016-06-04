@@ -23,6 +23,7 @@
 		DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */; };
 		DA728DB81CBB75F3007D7EFB /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = DA728DB71CBB75F3007D7EFB /* Fonts */; };
 		DA728DC21CBB7786007D7EFB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = DA728DC11CBB7786007D7EFB /* Images */; };
+		DAD2D51C1D02163700A98D02 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */; };
 		DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		DA728DB71CBB75F3007D7EFB /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		DA728DC11CBB7786007D7EFB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "Fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 				DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */,
 				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */,
+				DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */,
 				DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */,
 				DA728D9D1CBB6D93007D7EFB /* Main.storyboard */,
 				DA728DC11CBB7786007D7EFB /* Images */,
@@ -156,6 +159,7 @@
 				TargetAttributes = {
 					DA728D951CBB6D93007D7EFB = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 5H5ZYZARKQ;
 					};
 				};
 			};
@@ -184,6 +188,7 @@
 			files = (
 				DA728DC21CBB7786007D7EFB /* Images in Resources */,
 				DA56A6021CF163B700C42138 /* Quicksand-Regular.ttf in Resources */,
+				DAD2D51C1D02163700A98D02 /* OpenSans-Light.ttf in Resources */,
 				DA728DB81CBB75F3007D7EFB /* Fonts in Resources */,
 				DA728DA41CBB6D93007D7EFB /* LaunchScreen.storyboard in Resources */,
 				DA728DA11CBB6D93007D7EFB /* Assets.xcassets in Resources */,
@@ -369,10 +374,14 @@
 			baseConfigurationReference = 9BAC9BBB9C1D00B24A926337 /* Pods-CurrencyPlus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CurrencyPlus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SYXH.CurrencyPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -381,10 +390,14 @@
 			baseConfigurationReference = 9A8E8D253F1BBA8C763E3065 /* Pods-CurrencyPlus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CurrencyPlus/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.SYXH.CurrencyPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

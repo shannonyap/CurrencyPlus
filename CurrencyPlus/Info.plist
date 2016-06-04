@@ -30,6 +30,7 @@
 	<array>
 		<string>Quicksand-Regular.ttf</string>
 		<string>BebasNeueRegular.ttf</string>
+		<string>OpenSans-Light.ttf</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

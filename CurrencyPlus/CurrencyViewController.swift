@@ -26,8 +26,8 @@ extension UIColor {
     }
 }
 
-class CurrencyViewController: UIViewController {
-
+class CurrencyViewController: UIViewController, UITextFieldDelegate {
+    var searchTerms: [String] = []
     var menuView: BTNavigationDropdownMenu!
     let currentIndex = 1
     let numPad = ["fav","1","2","3","4","5","6","7","8","9", ".", "0", "delete"]
@@ -36,8 +36,10 @@ class CurrencyViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        addJSONtoFirebaseDB()
+        addTapGesture()
         
+        addJSONtoFirebaseDB()
+        toDB()
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
         let items = Constants.items
@@ -54,7 +56,6 @@ class CurrencyViewController: UIViewController {
                 self.viewControllerSwitch(indexPath)
             }
         }
-        
         self.navigationItem.titleView = menuView
         
         /* Adding the UI objects to the screen */
@@ -66,9 +67,9 @@ class CurrencyViewController: UIViewController {
         
         let secondTextField = makeCurrTextFields(2, activeColor: UIColor.whiteColor() ,customFrame: CGRect(x: secondCurrView.bounds.size.width / 2 + (secondCurrView.bounds.size.width/2 - Constants.textFieldWidth) / 2, y: secondCurrView.frame.origin.y + (secondCurrView.bounds.size.height - Constants.textFieldHeight) / 2, width: Constants.textFieldWidth, height: Constants.textFieldHeight))
         
-        let BaseCurrencySearch = makeCurrencySearchFields(["Abraham", "George", "Franklin"], customFrame: CGRectMake(firstCurrView.bounds.size.width/4 - Constants.textFieldWidth / 2 , firstTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Base Currency")
+        let BaseCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(firstCurrView.bounds.size.width/4 - Constants.textFieldWidth / 2 , firstTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Base Currency")
         
-        let SelectedCurrencySearch = makeCurrencySearchFields(["Abraham", "George", "Franklin"], customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Chosen Currency")
+        let SelectedCurrencySearch = makeCurrencySearchFields(self.searchTerms, customFrame: CGRectMake(secondCurrView.bounds.size.width / 4 - Constants.textFieldWidth / 2, secondTextField.frame.origin.y, Constants.textFieldWidth, Constants.textFieldHeight), placeHolderText: "Chosen Currency")
 
         let xcoord: CGFloat = 0
         let ycoord = dividerLine.frame.origin.y + dividerLine.bounds.size.height
@@ -131,7 +132,7 @@ class CurrencyViewController: UIViewController {
         } else {
             theCurrTextField.borderInactiveColor = UIColor.whiteColor()
         }
-        theCurrTextField.font = UIFont(name: "BebasNeueRegular", size: 30.0)
+        theCurrTextField.font = UIFont(name: "BebasNeueRegular", size: 25.0)
         theCurrTextField.inputView = UIView() /* Disable keyboard for text field */
         theCurrTextField.textAlignment = NSTextAlignment.Right
         
@@ -141,7 +142,9 @@ class CurrencyViewController: UIViewController {
     func makeCurrencySearchFields (suggestions: NSArray, customFrame: CGRect, placeHolderText: String) -> AutocompleteField {
         let currSearchField = AutocompleteField(frame: customFrame, suggestions: suggestions as! [String])
         currSearchField.placeholder = placeHolderText
+        currSearchField.font = UIFont(name: "OpenSans-Light", size: 16.0)
         currSearchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
+        currSearchField.delegate = self
         
         return currSearchField
     }
@@ -205,7 +208,10 @@ class CurrencyViewController: UIViewController {
                     let firebaseDictionary: Dictionary? = self.convertStringToDictionary(datastring)
                     ref.childByAppendingPath("jsonCurrencies").setValue(firebaseDictionary)
                     ref.childByAppendingPath("jsonCurrencies").observeEventType(.ChildAdded, withBlock: { snapshot in
-                        let searchTerm = ["searchTerm": String(snapshot.value.objectForKey("name")!) + " (" + (String(snapshot.value.objectForKey("code")!)) + ")"]
+                        var searchTerm = ["searchTerm1": String(snapshot.value.objectForKey("name")!) + ", " + (String(snapshot.value.objectForKey("code")!))]
+                        ref.childByAppendingPath("jsonCurrencies").childByAppendingPath(String(snapshot.value.objectForKey("code")!)).updateChildValues(searchTerm)
+                        
+                        searchTerm = ["searchTerm2": (String(snapshot.value.objectForKey("code")!)) + ", " + String(snapshot.value.objectForKey("name")!)]
                         ref.childByAppendingPath("jsonCurrencies").childByAppendingPath(String(snapshot.value.objectForKey("code")!)).updateChildValues(searchTerm)
                     })
                 }
@@ -214,8 +220,49 @@ class CurrencyViewController: UIViewController {
                 print(error.description)
         })
     }
+
+    func toDB() {
+        ref.childByAppendingPath("jsonCurrencies").observeEventType(.ChildAdded, withBlock:  { snapshot in
+            self.searchTerms.append(String(snapshot.value.objectForKey("searchTerm1")!))
+            self.searchTerms.append(String(snapshot.value.objectForKey("searchTerm2")!))
+        })
+    }
+
+    // MARK: - UITextField delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        // set field text to the suggestion text on return
+        if let field = textField as? AutocompleteField
+        {
+            field.text = field.suggestion
+        }
+        
+        return true
+    }
     
+    /* Function to add the searchTerms to the textField. */
+    func textFieldShouldBeginEditing(state: UITextField) -> Bool {
+        if let textField = state as? AutocompleteField {
+            textField.suggestions = self.searchTerms
+        }
+        
+        return true
+    }
     
+    /* Autocompletes partial typing and then shows the currency code */
+    func textFieldDidEndEditing(textField: UITextField) {
+        if let field = textField as? AutocompleteField
+        {
+            field.text = field.suggestion
+            ref.childByAppendingPath("jsonCurrencies").observeEventType(.ChildAdded, withBlock: { snapshot in
+                let text: String = field.text!
+                let currencyCode: String = snapshot.value.objectForKey("code")! as! String
+                if text.containsString(currencyCode) {
+                    field.text = currencyCode
+                }
+            })
+        }
+    }
     /*
     // MARK: - Navigation
 

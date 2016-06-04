@@ -35,7 +35,6 @@ class SettingsViewController: UIViewController {
         }
         
         self.navigationItem.titleView = menuView
-
         
         // Do any additional setup after loading the view.
     }
