@@ -26,6 +26,23 @@ extension UIColor {
     }
 }
 
+extension Float {
+    var formatted:String {
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        return formatter.stringFromNumber(self) ?? ""
+    }
+}
+
+extension String {
+    public func indexOfCharacter(char: Character) -> Int? {
+        if let idx = self.characters.indexOf(char) {
+            return self.startIndex.distanceTo(idx)
+        }
+        return nil
+    }
+}
+
 class CurrencyViewController: UIViewController, UITextFieldDelegate {
     var activeTextField = UITextField()
     var currencyTextFieldArray: [AutocompleteField] = []
@@ -149,6 +166,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         theCurrTextField.inputView = UIView() /* Disable keyboard for text field */
         theCurrTextField.textAlignment = NSTextAlignment.Right
         theCurrTextField.addTarget(self, action: #selector(CurrencyViewController.ifSelected(_:)), forControlEvents: UIControlEvents.AllTouchEvents)
+        theCurrTextField.addTarget(self, action: #selector(CurrencyViewController.didEndEdit(_:)), forControlEvents: UIControlEvents.EditingDidEnd)
         theCurrTextField.tag = textFieldId
         amountTextFieldArray.append(theCurrTextField)
         
@@ -204,14 +222,21 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func appendNumber(sender: UIButton!) {
+        let otherTextFieldIdx = getBothTextFieldTags(self.activeTextField)
         if sender.tag != 10 && sender.tag != 11 {
             self.activeTextField.text!.appendContentsOf(String(sender.tag))
+            getCurrRatesAndUpdateAmtTextField(currencyTextFieldArray, amtTextFieldArray: amountTextFieldArray, otherTextFieldIdx: otherTextFieldIdx)
+            
         } else if sender.tag == 10 {
-            if !self.activeTextField.text!.containsString("."){
+            if !self.activeTextField.text!.containsString(".") {
+                if self.activeTextField.text!.isEmpty {
+                    self.activeTextField.text!.appendContentsOf("0")
+                }
                 self.activeTextField.text!.appendContentsOf(".")
             }
         } else if sender.tag == 11 {
             self.activeTextField.text!.appendContentsOf("0")
+            getCurrRatesAndUpdateAmtTextField(currencyTextFieldArray, amtTextFieldArray: amountTextFieldArray, otherTextFieldIdx: otherTextFieldIdx)
         }
     }
     
@@ -219,6 +244,10 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         let otherTextFieldIdx = getBothTextFieldTags(self.activeTextField)
         if self.activeTextField.text!.isNotEmpty {
             self.activeTextField.text!.removeAtIndex(self.activeTextField.text!.endIndex.predecessor())
+            if self.activeTextField.text!.characters.indexOf(".") == self.activeTextField.text!.endIndex {
+                print("ahaha")
+                //self.activeTextField.text!.removeAtIndex(self.activeTextField.text!.endIndex.predecessor())
+            }
             /* If it is still non-null after removing the last number, update the amount on the other textField. */
             if self.activeTextField.text!.isNotEmpty  && currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
                 getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
@@ -232,6 +261,13 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     func ifSelected (sender: HoshiTextField) {
         self.activeTextField = sender
+    }
+    
+    func didEndEdit (sender: HoshiTextField) {
+        if sender.text!.isNotEmpty {
+            sender.text! = sender.text!.stringByReplacingOccurrencesOfString("^0+", withString: "", options: .RegularExpressionSearch, range: Range<String.Index>(start:sender.text!.startIndex, end: sender.text!.endIndex))
+            sender.text! = (Float)(sender.text!)!.formatted
+        }
     }
 
     /* Used to get the dictionary of currency information */
@@ -368,9 +404,23 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     func updateAmountTextField (baseAmtTextField: HoshiTextField, convertedAmtTextField: HoshiTextField, rate: String) {
         dispatch_async(dispatch_get_main_queue(), {
-            let baseCurrAmt: Float = (Float)(baseAmtTextField.text!)!
-            let totalAmount: String! = String(baseCurrAmt * (Float)(rate)!)
-            convertedAmtTextField.text = totalAmount
+            if baseAmtTextField.text!.isNotEmpty {
+                print(baseAmtTextField.text!)
+                let baseCurrAmt: Float = (Float)(baseAmtTextField.text!)!
+                let totalAmount: String! = String(baseCurrAmt * (Float)(rate)!)
+                if (Float)(totalAmount) == 0.0 {
+                    convertedAmtTextField.text = "0"
+                } else {
+                    convertedAmtTextField.text = totalAmount
+                }
+            }
+        })
+    }
+    
+    
+    func getCurrRatesAndUpdateAmtTextField (currTextFieldArray: [AutocompleteField], amtTextFieldArray: [HoshiTextField], otherTextFieldIdx: Int) {
+        getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
+            self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
         })
     }
     
