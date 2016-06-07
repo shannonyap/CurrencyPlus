@@ -28,6 +28,8 @@ extension UIColor {
 
 class CurrencyViewController: UIViewController, UITextFieldDelegate {
     var activeTextField = UITextField()
+    var currencyTextFieldArray: [AutocompleteField] = []
+    var amountTextFieldArray: [HoshiTextField] = []
     var searchTerms: [String] = []
     var menuView: BTNavigationDropdownMenu!
     let currentIndex = 1
@@ -148,6 +150,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         theCurrTextField.textAlignment = NSTextAlignment.Right
         theCurrTextField.addTarget(self, action: #selector(CurrencyViewController.ifSelected(_:)), forControlEvents: UIControlEvents.AllTouchEvents)
         theCurrTextField.tag = textFieldId
+        amountTextFieldArray.append(theCurrTextField)
         
         return theCurrTextField
     }
@@ -161,6 +164,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         currSearchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Bottom
         currSearchField.delegate = self
         currSearchField.tag = searchFieldId
+        currencyTextFieldArray.append(currSearchField)
         
         return currSearchField
     }
@@ -212,8 +216,17 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func deleteNumber (sender: UIButton!) {
+        let otherTextFieldIdx = getBothTextFieldTags(self.activeTextField)
         if self.activeTextField.text!.isNotEmpty {
             self.activeTextField.text!.removeAtIndex(self.activeTextField.text!.endIndex.predecessor())
+            /* If it is still non-null after removing the last number, update the amount on the other textField. */
+            if self.activeTextField.text!.isNotEmpty  && currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
+                getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
+                    self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
+                })
+            }
+        } else {
+            amountTextFieldArray[otherTextFieldIdx].text = ""
         }
     }
     
@@ -293,32 +306,27 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     /* Autocompletes partial typing and then shows the currency code. */
     func textFieldDidEndEditing(textField: UITextField) {
         /* Find the textFields for the amount. */
-        var amountTextFieldArray: [HoshiTextField] = []
         if let autoCompleteField = textField as? AutocompleteField {
             autoCompleteField.text = autoCompleteField.suggestion
             asyncGetFirebaseData(autoCompleteField, completionHandler: { text in
                 dispatch_async(dispatch_get_main_queue(), {
                     autoCompleteField.text! = text
                 })
-                if amountTextFieldArray[autoCompleteField.tag - 1].text!.isEmpty {
+                let arrIdx = self.getBothTextFieldTags(autoCompleteField)
+                if self.amountTextFieldArray[autoCompleteField.tag - 1].text!.isEmpty {
                     // here is where we convert
                     for case let autoField as AutocompleteField in self.view.subviews {
                         if autoField.tag != autoCompleteField.tag {
-                            self.getCurrencyConversionRates(autoField.text! + autoCompleteField.text!) { amount, error in
-                                dispatch_async(dispatch_get_main_queue(), {
-                                    amountTextFieldArray[autoCompleteField.tag - 1].text! = amount!
-                                })
+                            self.getCurrencyConversionRates(autoField.text!, chosenCurrency: autoCompleteField.text!) { amount, error in
+                                self.updateAmountTextField(self.amountTextFieldArray[arrIdx], convertedAmtTextField: self.amountTextFieldArray[autoCompleteField.tag - 1], rate: amount!)
                             }
                         }
                     }
                 }
             })
-            for case let amountTextField as HoshiTextField in self.view.subviews {
-                amountTextFieldArray.append(amountTextField)
-            }
-            if (amountTextFieldArray[1].tag == autoCompleteField.tag) && amountTextFieldArray[0].text!.isEmpty && !autoCompleteField.text!.isEmpty {
+            if (amountTextFieldArray[1].tag == autoCompleteField.tag) && amountTextFieldArray[0].text!.isEmpty && !autoCompleteField.text!.isEmpty && amountTextFieldArray[1].text!.isEmpty {
                 amountTextFieldArray[1].text = "1"
-            } else if (amountTextFieldArray[0].tag == autoCompleteField.tag) && amountTextFieldArray[1].text!.isEmpty && !autoCompleteField.text!.isEmpty {
+            } else if (amountTextFieldArray[0].tag == autoCompleteField.tag) && amountTextFieldArray[1].text!.isEmpty && !autoCompleteField.text!.isEmpty && amountTextFieldArray[0].text!.isEmpty {
                 amountTextFieldArray[0].text = "1"
             }
         }
@@ -336,8 +344,8 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    func getCurrencyConversionRates (concatenatedCurrency: String, completionHandler: (String?, NSError?) -> Void ) -> NSURLSessionTask {
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22" + concatenatedCurrency + "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")!, completionHandler: { (data, response, error) -> Void in
+    func getCurrencyConversionRates (baseCurrency: String, chosenCurrency: String, completionHandler: (String?, NSError?) -> Void ) -> NSURLSessionTask {
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22" + baseCurrency + chosenCurrency + "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")!, completionHandler: { (data, response, error) -> Void in
             do{
                 let dict: Dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! [String:AnyObject]
                 let amount: String = (dict["query"]!["results"]!!["rate"]!!["Rate"]!! as? String)!
@@ -351,6 +359,20 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         return task
     }
     
+    func getBothTextFieldTags (conditionVar: UITextField) -> Int {
+        if conditionVar.tag - 1 == 1 {
+            return 0
+        }
+        return 1
+    }
+    
+    func updateAmountTextField (baseAmtTextField: HoshiTextField, convertedAmtTextField: HoshiTextField, rate: String) {
+        dispatch_async(dispatch_get_main_queue(), {
+            let baseCurrAmt: Float = (Float)(baseAmtTextField.text!)!
+            let totalAmount: String! = String(baseCurrAmt * (Float)(rate)!)
+            convertedAmtTextField.text = totalAmount
+        })
+    }
     
     /*
     // MARK: - Navigation
