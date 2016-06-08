@@ -51,7 +51,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     var menuView: BTNavigationDropdownMenu!
     let currentIndex = 1
     let numPad = ["fav","1","2","3","4","5","6","7","8","9", ".", "0", "delete", "graph"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -244,12 +244,8 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         let otherTextFieldIdx = getBothTextFieldTags(self.activeTextField)
         if self.activeTextField.text!.isNotEmpty {
             self.activeTextField.text!.removeAtIndex(self.activeTextField.text!.endIndex.predecessor())
-            if self.activeTextField.text!.characters.indexOf(".") == self.activeTextField.text!.endIndex {
-                print("ahaha")
-                //self.activeTextField.text!.removeAtIndex(self.activeTextField.text!.endIndex.predecessor())
-            }
             /* If it is still non-null after removing the last number, update the amount on the other textField. */
-            if self.activeTextField.text!.isNotEmpty  && currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
+            if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
                 getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
                     self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
                 })
@@ -264,9 +260,11 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func didEndEdit (sender: HoshiTextField) {
-        if sender.text!.isNotEmpty {
-            sender.text! = sender.text!.stringByReplacingOccurrencesOfString("^0+", withString: "", options: .RegularExpressionSearch, range: Range<String.Index>(start:sender.text!.startIndex, end: sender.text!.endIndex))
+        sender.text! = sender.text!.stringByReplacingOccurrencesOfString("^0+", withString: "", options: .RegularExpressionSearch, range: Range<String.Index>(start:sender.text!.startIndex, end: sender.text!.endIndex))
+        if sender.text!.isNotEmpty  && sender.text! != "." {
             sender.text! = (Float)(sender.text!)!.formatted
+        } else if sender.text!.isEmpty || sender.text! == "." {
+            sender.text! = "0"
         }
     }
 
@@ -405,7 +403,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     func updateAmountTextField (baseAmtTextField: HoshiTextField, convertedAmtTextField: HoshiTextField, rate: String) {
         dispatch_async(dispatch_get_main_queue(), {
             if baseAmtTextField.text!.isNotEmpty {
-                print(baseAmtTextField.text!)
+                if baseAmtTextField.text!.containsString(",") {
+                    baseAmtTextField.text! = baseAmtTextField.text!.stringByReplacingOccurrencesOfString(",", withString: "")
+                }
                 let baseCurrAmt: Float = (Float)(baseAmtTextField.text!)!
                 let totalAmount: String! = String(baseCurrAmt * (Float)(rate)!)
                 if (Float)(totalAmount) == 0.0 {
@@ -413,6 +413,8 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                 } else {
                     convertedAmtTextField.text = totalAmount
                 }
+            } else {
+                convertedAmtTextField.text = "0"
             }
         })
     }
