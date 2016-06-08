@@ -347,14 +347,15 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                     autoCompleteField.text! = text
                 })
                 let arrIdx = self.getBothTextFieldTags(autoCompleteField)
+                /* If the amountTextField of the currencyTextField that has just been autcompleted is empty, then execute code below */
                 if self.amountTextFieldArray[autoCompleteField.tag - 1].text!.isEmpty {
                     // here is where we convert
-                    for case let autoField as AutocompleteField in self.view.subviews {
-                        if autoField.tag != autoCompleteField.tag {
-                            self.getCurrencyConversionRates(autoField.text!, chosenCurrency: autoCompleteField.text!) { amount, error in
-                                self.updateAmountTextField(self.amountTextFieldArray[arrIdx], convertedAmtTextField: self.amountTextFieldArray[autoCompleteField.tag - 1], rate: amount!)
-                            }
-                        }
+                    self.getCurrencyConversionRates(self.currencyTextFieldArray[arrIdx].text!, chosenCurrency: self.currencyTextFieldArray[autoCompleteField.tag - 1].text!) { amount, error in
+                        self.updateAmountTextField(self.amountTextFieldArray[arrIdx], convertedAmtTextField: self.amountTextFieldArray[autoCompleteField.tag - 1], rate: amount!)
+                    }
+                } else if self.amountTextFieldArray[autoCompleteField.tag - 1].text!.isNotEmpty && self.amountTextFieldArray[arrIdx].text!.isNotEmpty {
+                    self.getCurrencyConversionRates(self.currencyTextFieldArray[autoCompleteField.tag - 1].text!, chosenCurrency: self.currencyTextFieldArray[arrIdx].text!) { amount, error in
+                        self.updateAmountTextField(self.amountTextFieldArray[autoCompleteField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[arrIdx], rate: amount!)
                     }
                 }
             })
@@ -421,6 +422,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     
     func getCurrRatesAndUpdateAmtTextField (currTextFieldArray: [AutocompleteField], amtTextFieldArray: [HoshiTextField], otherTextFieldIdx: Int) {
+        
         getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
             self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
         })
