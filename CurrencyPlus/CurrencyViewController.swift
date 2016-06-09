@@ -44,6 +44,8 @@ extension String {
 }
 
 class CurrencyViewController: UIViewController, UITextFieldDelegate {
+    var listOfFavorites: [Dictionary<String, String>] = []
+    var counter: Int = 0
     var activeTextField = UITextField()
     var currencyTextFieldArray: [AutocompleteField] = []
     var amountTextFieldArray: [HoshiTextField] = []
@@ -60,6 +62,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         
         addJSONtoFirebaseDB()
         toDB()
+        
+        /* Adds a counter to the DB to keep track of favorites. */
+        ref.childByAppendingPath("counter").setValue(self.counter)
         
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
@@ -197,11 +202,13 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             button.addTarget(self, action: #selector(CurrencyViewController.appendNumber(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         } else if buttonId == 0 {
             button = customImageButtons(button, normalImage: "favorite", highlightedImage: "favoriteSelected", topAndBottomInsets: button.frame.size.height / 4, leftAndRightInsets: button.frame.size.width / 1.65)
+            button.addTarget(self, action: #selector(CurrencyViewController.addAsFavorite(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         } else if buttonId == 12 {
             button = customImageButtons(button, normalImage: "delete", highlightedImage: "deleteHighlighted", topAndBottomInsets: button.frame.size.height / 3.342, leftAndRightInsets: button.frame.size.width / 2.5)
             button.addTarget(self, action: #selector(CurrencyViewController.deleteNumber(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         } else if buttonId == 13 {
             button = customImageButtons(button, normalImage: "graph", highlightedImage: "graphHighlighted", topAndBottomInsets: button.frame.size.height / 3.5, leftAndRightInsets: button.frame.size.width / 1.7)
+            button.addTarget(self, action: #selector(CurrencyViewController.showGraph(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }
         button.tag = buttonId
         
@@ -255,6 +262,36 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             }
         } else {
             amountTextFieldArray[otherTextFieldIdx].text = ""
+        }
+    }
+    
+    func showGraph (sender: UIButton!) {
+        print("show the graph")
+    }
+    
+    func addAsFavorite (sender: UIButton) {
+        if (currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty && amountTextFieldArray[0].text!.isNotEmpty && amountTextFieldArray[1].text!.isNotEmpty) {
+        
+            var id = "favorite"
+            id += String(self.counter)
+            
+            let favorite = [
+                "id": id,
+                "baseCurrency": currencyTextFieldArray[0].text!,
+                "chosenCurrency": currencyTextFieldArray[1].text!,
+                "baseCurrencyAmount": amountTextFieldArray[0].text!,
+                "chosenCurrencyAmount": amountTextFieldArray[1].text!
+            ]
+     
+            /* Adds the dictionary to the DB. */
+            ref.childByAppendingPath("favoritesList").childByAppendingPath(favorite["id"]).setValue(favorite)
+            
+            listOfFavorites.append(favorite)
+            
+            /* Update counter value after adding the favorite to the DB */
+            self.counter += 1
+            let updatedCounterValue = ["counter": self.counter]
+            ref.updateChildValues(updatedCounterValue)
         }
     }
     

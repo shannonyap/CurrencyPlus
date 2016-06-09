@@ -10,7 +10,6 @@
 		D735D1C4773AC32F9D736B7E /* Pods_CurrencyPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59BAAF13190AFDBDD159BEF2 /* Pods_CurrencyPlus.framework */; };
 		DA3B44A21CBB7C290074A07E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B44A11CBB7C290074A07E /* LoginViewController.swift */; };
 		DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50C5111CF010070018B164 /* MainPageTableViewController.swift */; };
-		DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */; };
 		DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */; };
 		DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */; };
 		DA56A6021CF163B700C42138 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */; };
@@ -33,7 +32,6 @@
 		9BAC9BBB9C1D00B24A926337 /* Pods-CurrencyPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyPlus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyPlus/Pods-CurrencyPlus.debug.xcconfig"; sourceTree = "<group>"; };
 		DA3B44A11CBB7C290074A07E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA50C5111CF010070018B164 /* MainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageTableViewController.swift; sourceTree = "<group>"; };
-		DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListTableViewController.swift; sourceTree = "<group>"; };
 		DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "Fonts/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
@@ -105,12 +103,11 @@
 				DA728D991CBB6D93007D7EFB /* AppDelegate.swift */,
 				DA728DAB1CBB6E0E007D7EFB /* Base.swift */,
 				DA3B44A11CBB7C290074A07E /* LoginViewController.swift */,
+				DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */,
+				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA50C5111CF010070018B164 /* MainPageTableViewController.swift */,
 				DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */,
 				DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */,
-				DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */,
-				DA56A5F61CF01CD300C42138 /* CountryListTableViewController.swift */,
-				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */,
 				DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */,
 				DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */,
@@ -257,7 +254,6 @@
 				DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */,
 				DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */,
 				DA728DAC1CBB6E0E007D7EFB /* Base.swift in Sources */,
-				DA56A5F71CF01CD300C42138 /* CountryListTableViewController.swift in Sources */,
 				DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */,
 				DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */,
 				DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */,
