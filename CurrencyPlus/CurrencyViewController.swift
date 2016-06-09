@@ -26,7 +26,7 @@ extension UIColor {
     }
 }
 
-extension Float {
+extension Double {
     var formatted:String {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
@@ -225,8 +225,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         let otherTextFieldIdx = getBothTextFieldTags(self.activeTextField)
         if sender.tag != 10 && sender.tag != 11 {
             self.activeTextField.text!.appendContentsOf(String(sender.tag))
-            getCurrRatesAndUpdateAmtTextField(currencyTextFieldArray, amtTextFieldArray: amountTextFieldArray, otherTextFieldIdx: otherTextFieldIdx)
-            
+            if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
+                getCurrRatesAndUpdateAmtTextField(currencyTextFieldArray, amtTextFieldArray: amountTextFieldArray, otherTextFieldIdx: otherTextFieldIdx)
+            }
         } else if sender.tag == 10 {
             if !self.activeTextField.text!.containsString(".") {
                 if self.activeTextField.text!.isEmpty {
@@ -236,7 +237,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             }
         } else if sender.tag == 11 {
             self.activeTextField.text!.appendContentsOf("0")
-            getCurrRatesAndUpdateAmtTextField(currencyTextFieldArray, amtTextFieldArray: amountTextFieldArray, otherTextFieldIdx: otherTextFieldIdx)
+            if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
+                getCurrRatesAndUpdateAmtTextField(currencyTextFieldArray, amtTextFieldArray: amountTextFieldArray, otherTextFieldIdx: otherTextFieldIdx)
+            }
         }
     }
     
@@ -261,8 +264,11 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     func didEndEdit (sender: HoshiTextField) {
         sender.text! = sender.text!.stringByReplacingOccurrencesOfString("^0+", withString: "", options: .RegularExpressionSearch, range: Range<String.Index>(start:sender.text!.startIndex, end: sender.text!.endIndex))
+        if sender.text!.containsString(",") {
+            sender.text! = sender.text!.stringByReplacingOccurrencesOfString(",", withString: "")
+        }
         if sender.text!.isNotEmpty  && sender.text! != "." {
-            sender.text! = (Float)(sender.text!)!.formatted
+            sender.text! = (Double)(sender.text!)!.formatted
         } else if sender.text!.isEmpty || sender.text! == "." {
             sender.text! = "0"
         }
@@ -314,11 +320,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
 
     // MARK: - UITextField delegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool
-    {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
         // set field text to the suggestion text on return
-        if let field = textField as? AutocompleteField
-        {
+        if let field = textField as? AutocompleteField {
             field.text = field.suggestion
         }
         
@@ -353,7 +357,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                     self.getCurrencyConversionRates(self.currencyTextFieldArray[arrIdx].text!, chosenCurrency: self.currencyTextFieldArray[autoCompleteField.tag - 1].text!) { amount, error in
                         self.updateAmountTextField(self.amountTextFieldArray[arrIdx], convertedAmtTextField: self.amountTextFieldArray[autoCompleteField.tag - 1], rate: amount!)
                     }
-                } else if self.amountTextFieldArray[autoCompleteField.tag - 1].text!.isNotEmpty && self.amountTextFieldArray[arrIdx].text!.isNotEmpty {
+                } else if self.amountTextFieldArray[autoCompleteField.tag - 1].text!.isNotEmpty && self.amountTextFieldArray[arrIdx].text!.isNotEmpty  && self.currencyTextFieldArray[arrIdx].text!.isNotEmpty {
                     self.getCurrencyConversionRates(self.currencyTextFieldArray[autoCompleteField.tag - 1].text!, chosenCurrency: self.currencyTextFieldArray[arrIdx].text!) { amount, error in
                         self.updateAmountTextField(self.amountTextFieldArray[autoCompleteField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[arrIdx], rate: amount!)
                     }
@@ -407,9 +411,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                 if baseAmtTextField.text!.containsString(",") {
                     baseAmtTextField.text! = baseAmtTextField.text!.stringByReplacingOccurrencesOfString(",", withString: "")
                 }
-                let baseCurrAmt: Float = (Float)(baseAmtTextField.text!)!
-                let totalAmount: String! = String(baseCurrAmt * (Float)(rate)!)
-                if (Float)(totalAmount) == 0.0 {
+                let baseCurrAmt: Double = (Double)(baseAmtTextField.text!)!
+                let totalAmount: String! = String(baseCurrAmt * (Double)(rate)!)
+                if (Double)(totalAmount) == 0.0 {
                     convertedAmtTextField.text = "0"
                 } else {
                     convertedAmtTextField.text = totalAmount
@@ -422,7 +426,6 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     
     func getCurrRatesAndUpdateAmtTextField (currTextFieldArray: [AutocompleteField], amtTextFieldArray: [HoshiTextField], otherTextFieldIdx: Int) {
-        
         getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
             self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
         })
