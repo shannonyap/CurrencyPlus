@@ -11,6 +11,7 @@ import BTNavigationDropdownMenu
 import TextFieldEffects
 import Firebase
 import AutocompleteField
+import Toast_Swift
 
 extension UIColor {
     class func getTextFieldColor() -> UIColor {
@@ -270,8 +271,8 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addAsFavorite (sender: UIButton) {
+        self.view.makeToast("Rate added to Favorites!", duration: 0.5, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225)) /* Notification to the user that the rate was added to the DB. */
         if (currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty && amountTextFieldArray[0].text!.isNotEmpty && amountTextFieldArray[1].text!.isNotEmpty) {
-        
             var id = "favorite"
             id += String(self.counter)
             
