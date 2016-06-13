@@ -463,9 +463,11 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     
     
     func getCurrRatesAndUpdateAmtTextField (currTextFieldArray: [AutocompleteField], amtTextFieldArray: [HoshiTextField], otherTextFieldIdx: Int) {
-        getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
-            self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
-        })
+        if self.activeTextField.tag - 1 != -1 {
+            getCurrencyConversionRates(currencyTextFieldArray[self.activeTextField.tag - 1].text!, chosenCurrency: currencyTextFieldArray[otherTextFieldIdx].text!, completionHandler: { rate, error in
+                self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
+            })
+        }
     }
     
     /*
