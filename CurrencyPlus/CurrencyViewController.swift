@@ -267,12 +267,15 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func showGraph (sender: UIButton!) {
-        print("show the graph")
+        if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
+            performSegueWithIdentifier("showGraphSegue", sender: nil)
+        }
     }
     
     func addAsFavorite (sender: UIButton) {
-        self.view.makeToast("Rate added to Favorites!", duration: 0.5, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225)) /* Notification to the user that the rate was added to the DB. */
-        if (currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty && amountTextFieldArray[0].text!.isNotEmpty && amountTextFieldArray[1].text!.isNotEmpty) {
+        if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty && amountTextFieldArray[0].text!.isNotEmpty && amountTextFieldArray[1].text!.isNotEmpty {
+            self.view.makeToast("Rate added to Favorites!", duration: 0.5, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225)) /* Notification to the user that the rate was added to the DB. */
+            
             var id = "favorite"
             id += String(self.counter)
             
@@ -469,6 +472,16 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                 self.updateAmountTextField(self.amountTextFieldArray[self.activeTextField.tag - 1], convertedAmtTextField: self.amountTextFieldArray[otherTextFieldIdx], rate: rate!)
             })
         }
+    }
+    
+    // This function is called before the segue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // get a reference to the second view controller
+        let graphVC = segue.destinationViewController as! GraphViewController
+        
+        // set a variable in the second view controller with the String to pass
+        graphVC.baseCurr = currencyTextFieldArray[0].text!
+        graphVC.convertedCurr = currencyTextFieldArray[1].text!
     }
     
     /*

@@ -22,6 +22,7 @@
 		DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */; };
 		DA728DB81CBB75F3007D7EFB /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = DA728DB71CBB75F3007D7EFB /* Fonts */; };
 		DA728DC21CBB7786007D7EFB /* Images in Resources */ = {isa = PBXBuildFile; fileRef = DA728DC11CBB7786007D7EFB /* Images */; };
+		DA8DAEE21D0FAE0D00E9CEFB /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */; };
 		DAD2D51C1D02163700A98D02 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */; };
 		DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		DA728DB31CBB6FA0007D7EFB /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		DA728DB71CBB75F3007D7EFB /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		DA728DC11CBB7786007D7EFB /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "Fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA50C5111CF010070018B164 /* MainPageTableViewController.swift */,
 				DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */,
+				DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */,
 				DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */,
 				DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */,
 				DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */,
@@ -249,6 +252,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8DAEE21D0FAE0D00E9CEFB /* GraphViewController.swift in Sources */,
 				DA3B44A21CBB7C290074A07E /* LoginViewController.swift in Sources */,
 				DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */,
 				DA728DB41CBB6FA0007D7EFB /* CreateAccountViewController.swift in Sources */,

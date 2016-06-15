@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:GraphViewController.swift">
+   </FileRef>
+   <FileRef
       location = "group:CurrencyPlus/LoginViewController.swift">
    </FileRef>
    <FileRef

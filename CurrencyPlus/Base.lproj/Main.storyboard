@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ocf-XT-NWf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cTb-gR-d2J">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -368,7 +368,7 @@
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="gYY-fX-Z6L">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gYY-fX-Z6L" id="0Lg-yy-uZy">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -419,41 +419,61 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="cTb-gR-d2J" kind="presentation" identifier="showGraphSegue" id="X2u-IG-aOl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Elo-Z6-GIm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1705" y="1657"/>
         </scene>
-        <!--Country List Table View Controller-->
-        <scene sceneID="7yQ-xj-LmY">
+        <!--Graph View Controller-->
+        <scene sceneID="ESW-Du-hVJ">
             <objects>
-                <tableViewController storyboardIdentifier="HomeViewController" id="mAb-ha-Gf4" customClass="CountryListTableViewController" customModule="CurrencyPlus" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="7vT-ek-phF">
+                <viewController id="cTb-gR-d2J" customClass="GraphViewController" customModule="CurrencyPlus" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fbu-P4-3rx"/>
+                        <viewControllerLayoutGuide type="bottom" id="OcK-1n-s2z"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tYT-S3-Vud">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Country" id="zJ3-wo-TIT">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zJ3-wo-TIT" id="aMC-0h-nBa">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="mAb-ha-Gf4" id="KpN-t8-H9E"/>
-                            <outlet property="delegate" destination="mAb-ha-Gf4" id="mMI-Ql-eoa"/>
-                        </connections>
-                    </tableView>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vI-uD-gND">
+                                <rect key="frame" x="0.0" y="20" width="600" height="35"/>
+                                <color key="backgroundColor" red="0.70237581705500096" green="0.90191226223251864" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXl-KC-Z23">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                <color key="backgroundColor" red="0.70237581709999997" green="0.90191226219999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vXl-KC-Z23" firstAttribute="trailing" secondItem="3vI-uD-gND" secondAttribute="trailing" id="A1Y-4G-m62"/>
+                            <constraint firstItem="vXl-KC-Z23" firstAttribute="bottom" secondItem="fbu-P4-3rx" secondAttribute="bottom" id="AOY-ON-8iP"/>
+                            <constraint firstItem="vXl-KC-Z23" firstAttribute="leading" secondItem="3vI-uD-gND" secondAttribute="leading" id="QHg-io-0Pz"/>
+                            <constraint firstItem="3vI-uD-gND" firstAttribute="top" secondItem="fbu-P4-3rx" secondAttribute="bottom" id="RBK-dJ-CD4"/>
+                            <constraint firstItem="OcK-1n-s2z" firstAttribute="top" secondItem="3vI-uD-gND" secondAttribute="bottom" constant="501" id="UI4-Mt-iCf"/>
+                            <constraint firstAttribute="trailing" secondItem="vXl-KC-Z23" secondAttribute="trailing" id="lkL-rB-Qb0"/>
+                            <constraint firstItem="vXl-KC-Z23" firstAttribute="leading" secondItem="tYT-S3-Vud" secondAttribute="leading" id="rl5-y9-teq"/>
+                            <constraint firstItem="vXl-KC-Z23" firstAttribute="top" secondItem="tYT-S3-Vud" secondAttribute="top" id="zBI-iW-Xbg"/>
+                        </constraints>
+                    </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="uXb-WS-tKe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="M4o-oQ-fAW">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nFA-dI-ssJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZfS-I1-01c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2438" y="1043"/>
+            <point key="canvasLocation" x="2572" y="2192"/>
         </scene>
         <!--User Info View Controller-->
         <scene sceneID="S0g-8e-x90">
