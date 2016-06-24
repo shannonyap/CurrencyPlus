@@ -2,14 +2,16 @@ PODS:
   - AutocompleteField (1.1)
   - BTNavigationDropdownMenu (0.3)
   - Firebase (2.5.1)
+  - JBChartView (3.0.9)
   - SCLAlertView (0.5.6)
   - TextFieldEffects (1.2.0)
   - Toast-Swift (1.3.0)
 
 DEPENDENCIES:
-  - AutocompleteField (~> 1.1)
+  - AutocompleteField
   - BTNavigationDropdownMenu
   - Firebase (>= 2.5.1)
+  - JBChartView
   - SCLAlertView
   - TextFieldEffects
   - Toast-Swift
@@ -18,10 +20,11 @@ SPEC CHECKSUMS:
   AutocompleteField: 212b36bef0218f22c05d80035be2d382acd5a4e2
   BTNavigationDropdownMenu: c36d20785253699046fdd295698c24b1d1c18f53
   Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  JBChartView: f5dded3f4d695b43e776e68f9908cfdd3407d1be
   SCLAlertView: c2b916952520d96cf5e886a38053f1b8c3da502e
   TextFieldEffects: bc4fd3bd557321bd61a0762f3f50965477a36f62
   Toast-Swift: 25c3d98db42dc70d9a77b5006ee000e0becb458e
 
-PODFILE CHECKSUM: 74bab444fae12f3bdb56e1cc00af2c05beb22ba5
+PODFILE CHECKSUM: 1d4d4393e4df37a636489f9906d7d0831be6680b
 
 COCOAPODS: 1.0.0

@@ -25,6 +25,7 @@
 		DA8DAEE21D0FAE0D00E9CEFB /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */; };
 		DAD2D51C1D02163700A98D02 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */; };
 		DAD6F1321CC1F9F200D286FD /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */; };
+		DAF4DB5B1D1CEB270001B125 /* JBChartBridgingHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = DAF4DB5A1D1CEB270001B125 /* JBChartBridgingHeader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
 		DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Light.ttf"; path = "Fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; };
 		DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		DAF4DB591D1CEB260001B125 /* CurrencyPlus-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CurrencyPlus-Bridging-Header.h"; sourceTree = "<group>"; };
+		DAF4DB5A1D1CEB270001B125 /* JBChartBridgingHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBChartBridgingHeader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,7 @@
 				DAD6F1311CC1F9F200D286FD /* UserInfoViewController.swift */,
 				DA50C5111CF010070018B164 /* MainPageTableViewController.swift */,
 				DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */,
+				DAF4DB5A1D1CEB270001B125 /* JBChartBridgingHeader.m */,
 				DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */,
 				DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */,
 				DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */,
@@ -120,6 +124,7 @@
 				DA728DA01CBB6D93007D7EFB /* Assets.xcassets */,
 				DA728DA21CBB6D93007D7EFB /* LaunchScreen.storyboard */,
 				DA728DA51CBB6D93007D7EFB /* Info.plist */,
+				DAF4DB591D1CEB260001B125 /* CurrencyPlus-Bridging-Header.h */,
 			);
 			path = CurrencyPlus;
 			sourceTree = "<group>";
@@ -261,6 +266,7 @@
 				DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */,
 				DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */,
 				DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */,
+				DAF4DB5B1D1CEB270001B125 /* JBChartBridgingHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +380,7 @@
 			baseConfigurationReference = 9BAC9BBB9C1D00B24A926337 /* Pods-CurrencyPlus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CurrencyPlus/Info.plist;
@@ -382,6 +389,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SYXH.CurrencyPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CurrencyPlus/CurrencyPlus-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -390,6 +399,7 @@
 			baseConfigurationReference = 9A8E8D253F1BBA8C763E3065 /* Pods-CurrencyPlus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CurrencyPlus/Info.plist;
@@ -398,6 +408,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.SYXH.CurrencyPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CurrencyPlus/CurrencyPlus-Bridging-Header.h";
 			};
 			name = Release;
 		};

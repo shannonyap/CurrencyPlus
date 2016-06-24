@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JBChartView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-CurrencyPlus.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,17 +47,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>19DC20DAEE67C6BA62A8BEEA8D27A999</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>6F56194ECD4A2A535883737959DC4637</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8173FF2D25E119FAB84E36DD25BCE79F</key>
+		<key>A8A036F6BE34010C6DC8FD49D8DD5FD9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A8D6D87DC3CE4D5DCC3948B4EAC2FBC4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C54F4F8CCCB7AF01E1DA411149C739B1</key>
+		<key>B978F144901F87B1C2557794EF11F9A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F3D4FBFCE90A9CAE4E3B84475DC32DDA</key>
+		<key>BEE753CAF2B30CDF855FB2B61C117C51</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C3E15BBF3E72843A0D0EB56DB50F6018</key>
 		<dict>
 			<key>primary</key>
 			<true/>
