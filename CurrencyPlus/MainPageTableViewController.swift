@@ -8,6 +8,7 @@
 
 import UIKit
 import BTNavigationDropdownMenu
+import Firebase
 
 extension BTNavigationDropdownMenu {
     func dropDownMenuDefaults (menuView: BTNavigationDropdownMenu) {
@@ -54,10 +55,9 @@ extension UIViewController {
 }
 
 class MainPageTableViewController: UITableViewController {
-
     var menuView: BTNavigationDropdownMenu!
     let currentIndex = 0
-    
+    var favoritesList: [FDataSnapshot] = []
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -78,9 +78,30 @@ class MainPageTableViewController: UITableViewController {
                 self.viewControllerSwitch(indexPath)
             }
         }
-    
+        
+        ref.childByAppendingPath("favoritesList").observeEventType(.Value) { (snapshot: FDataSnapshot!) in
+            var favoritesDataItems = [FDataSnapshot]()
+            
+            // loop through the children and append them to the new array
+            for favoritesDataItem in snapshot.children {
+                favoritesDataItems.append(favoritesDataItem as! FDataSnapshot)
+            }
+            
+            // replace the old array
+            self.favoritesList = favoritesDataItems
+            // reload the UITableView
+            if self.favoritesList.count != 0 {
+                self.tableView.reloadData()
+            } else {
+                /* If the user has yet to add a favorite, we will display a blank screen saying so. */
+                if self.tableView.numberOfRowsInSection(0) == 0 {
+                    let noFavoritesYet = self.createNoFavoritesView()
+                    self.view.addSubview(noFavoritesYet)
+                }
+            }
+        }
+        
         self.navigationItem.titleView = menuView
-
         /* Makes the separator lines go edge to edge */
         tableView.layoutMargins = UIEdgeInsetsZero
         tableView.separatorInset = UIEdgeInsetsZero
@@ -90,24 +111,15 @@ class MainPageTableViewController: UITableViewController {
         
         /* Removes the additional separator lines after the last cell*/
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
-        
-        /* If the user has yet to add a favorite, we will display a blank screen saying so. */
-        if tableView.numberOfRowsInSection(0) == 0 {
-            let noFavoritesYet = UILabel(frame: CGRect(x: 0, y: -((self.navigationController?.navigationBar.bounds.size.height)!), width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
-            noFavoritesYet.textColor = UIColor.whiteColor()
-            noFavoritesYet.backgroundColor = UIColor(red: 65/255.0, green: 68/255.0, blue: 77/255.0, alpha: 1.0)
-            noFavoritesYet.font = UIFont(name: "Quicksand-Regular", size: 40)
-            noFavoritesYet.text = "You have no favorites yet."
-            noFavoritesYet.numberOfLines = 2
-            noFavoritesYet.textAlignment = NSTextAlignment.Center
-            self.view.addSubview(noFavoritesYet)
-        }
+
+        self.tableView.allowsMultipleSelectionDuringEditing = false;
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -133,40 +145,48 @@ class MainPageTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.favoritesList.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-
         /* cell's separator lines will now be edge to edge*/
         cell.layoutMargins = UIEdgeInsetsZero
-        
-        cell.textLabel?.text = "hahahaha"
+        cell.textLabel?.text = self.favoritesList[indexPath.row].key
         
         return cell
     }
-    
 
-    /*
+    func createNoFavoritesView () -> UILabel {
+        let noFavoritesYet = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
+        noFavoritesYet.textColor = UIColor.whiteColor()
+        noFavoritesYet.backgroundColor = UIColor(red: 65/255.0, green: 68/255.0, blue: 77/255.0, alpha: 1.0)
+        noFavoritesYet.font = UIFont(name: "Quicksand-Regular", size: 40)
+        noFavoritesYet.text = "You have no favorites yet."
+        noFavoritesYet.numberOfLines = 2
+        noFavoritesYet.textAlignment = NSTextAlignment.Center
+        
+        return noFavoritesYet
+    }
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            ref.childByAppendingPath("favoritesList").childByAppendingPath(self.favoritesList[indexPath.row].key).removeValue()
+            self.favoritesList.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

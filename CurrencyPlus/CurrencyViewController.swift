@@ -46,7 +46,6 @@ extension String {
 
 class CurrencyViewController: UIViewController, UITextFieldDelegate {
     var listOfFavorites: [Dictionary<String, String>] = []
-    var counter: Int = 0
     var activeTextField = UITextField()
     var currencyTextFieldArray: [AutocompleteField] = []
     var amountTextFieldArray: [HoshiTextField] = []
@@ -63,9 +62,6 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
         
         addJSONtoFirebaseDB()
         toDB()
-        
-        /* Adds a counter to the DB to keep track of favorites. */
-        ref.childByAppendingPath("counter").setValue(self.counter)
         
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
@@ -279,12 +275,13 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     func addAsFavorite (sender: UIButton) {
         if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty && amountTextFieldArray[0].text!.isNotEmpty && amountTextFieldArray[1].text!.isNotEmpty {
             self.view.makeToast("Rate added to Favorites!", duration: 0.5, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225)) /* Notification to the user that the rate was added to the DB. */
-            
-            var id = "favorite"
-            id += String(self.counter)
-            
+         
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss Z"
+            dateFormatter.timeZone = NSTimeZone.localTimeZone()
+
             let favorite = [
-                "id": id,
+                "date": dateFormatter.stringFromDate(NSDate()),
                 "baseCurrency": currencyTextFieldArray[0].text!,
                 "chosenCurrency": currencyTextFieldArray[1].text!,
                 "baseCurrencyAmount": amountTextFieldArray[0].text!,
@@ -292,14 +289,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             ]
      
             /* Adds the dictionary to the DB. */
-            ref.childByAppendingPath("favoritesList").childByAppendingPath(favorite["id"]).setValue(favorite)
+            ref.childByAppendingPath("favoritesList").childByAppendingPath(favorite["date"]).setValue(favorite)
             
             listOfFavorites.append(favorite)
-            
-            /* Update counter value after adding the favorite to the DB */
-            self.counter += 1
-            let updatedCounterValue = ["counter": self.counter]
-            ref.updateChildValues(updatedCounterValue)
         } else {
             self.view.makeToast("Incomplete currencies and/or amounts. Unable to add to favorites. Please try again.", duration: 2, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225))
         }
