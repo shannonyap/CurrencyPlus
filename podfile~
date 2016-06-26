@@ -5,7 +5,12 @@ use_frameworks!
 
 target 'CurrencyPlus' do
 pod 'Firebase', '>= 2.5.1'
-pod 'SwiftyButton'
+pod 'BTNavigationDropdownMenu'
+pod 'AutocompleteField'
 pod "TextFieldEffects"
+pod "SCLAlertView"
+pod "Toast"
+pod "JBChartView"
+
 end
 

@@ -39,7 +39,7 @@ public enum AutocompleteType {
     }
     
     // Move the suggestion label up or down. Sometimes there's a small difference, and this can be used to fix it.
-    public var pixelCorrection : CGFloat = 0
+    public var pixelCorrection : CGFloat = 11.25
     
     // Update the suggestion when the text is changed using 'field.text'
     override public var text : String? {

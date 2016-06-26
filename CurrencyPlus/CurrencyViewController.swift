@@ -269,6 +269,10 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     func showGraph (sender: UIButton!) {
         if currencyTextFieldArray[0].text!.isNotEmpty && currencyTextFieldArray[1].text!.isNotEmpty {
             performSegueWithIdentifier("showGraphSegue", sender: nil)
+        } else if currencyTextFieldArray[0].text! == currencyTextFieldArray[1].text! {
+            self.view.makeToast("Both currencies cannot be the same. Please enter different currencies.", duration: 0.5, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225))
+        } else if currencyTextFieldArray[0].text! == "" || currencyTextFieldArray[1].text! == "" {
+            self.view.makeToast("You have not entered two currencies. Please try again.", duration: 0.5, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225))
         }
     }
     
@@ -296,6 +300,8 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             self.counter += 1
             let updatedCounterValue = ["counter": self.counter]
             ref.updateChildValues(updatedCounterValue)
+        } else {
+            self.view.makeToast("Incomplete currencies and/or amounts. Unable to add to favorites. Please try again.", duration: 2, position: CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height * 0.225))
         }
     }
     
