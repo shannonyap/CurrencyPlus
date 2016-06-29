@@ -285,7 +285,6 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
                 "baseCurrency": currencyTextFieldArray[0].text!,
                 "chosenCurrency": currencyTextFieldArray[1].text!,
                 "baseCurrencyAmount": amountTextFieldArray[0].text!,
-                "chosenCurrencyAmount": amountTextFieldArray[1].text!
             ]
      
             /* Adds the dictionary to the DB. */

@@ -102,13 +102,7 @@ class MainPageTableViewController: UITableViewController {
         }
         
         self.navigationItem.titleView = menuView
-        /* Makes the separator lines go edge to edge */
-        tableView.layoutMargins = UIEdgeInsetsZero
-        tableView.separatorInset = UIEdgeInsetsZero
-        
-        /* Draws a separator line for the tableviewcell */
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine;
-        
+       
         /* Removes the additional separator lines after the last cell*/
         tableView.tableFooterView = UIView(frame: CGRect(x: 0,y: 0,width: 0,height: 0))
 
@@ -152,11 +146,47 @@ class MainPageTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         /* cell's separator lines will now be edge to edge*/
         cell.layoutMargins = UIEdgeInsetsZero
-        cell.textLabel?.text = self.favoritesList[indexPath.row].key
+        cell.selectionStyle = .None
+        cell.backgroundColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1.0)
+    
+        let customContainer = UIView(frame: CGRect(x: self.tableView.bounds.size.width * 0.1 / 2, y: cell.bounds.size.height * 0.1 / 2 , width: self.tableView.bounds.size.width * 0.9, height: cell.bounds.size.height * 0.9))
+        customContainer.layer.cornerRadius = customContainer.frame.origin.x * 0.4
+        customContainer.layer.masksToBounds = true
+        customContainer.backgroundColor = UIColor.whiteColor()
+        
+        let borderLine = UIView(frame: CGRect(x: customContainer.bounds.size.width * 0.5, y: 0, width: 0.75, height: customContainer.bounds.size.height))
+        borderLine.backgroundColor = cell.backgroundColor
+        
+        let favoritesItem: Dictionary<String, String> = (self.favoritesList[indexPath.row].value as? Dictionary<String, String>)!
+
+        let baseCurrLabel = createCurrCodeLabels(false, customFrame: CGRect(x: 0, y: 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.215), currencyCode: favoritesItem["baseCurrency"]!)
+        
+        let chosenCurrLabel = createCurrCodeLabels(false, customFrame: CGRect(x: customContainer.bounds.size.width * 0.5, y: baseCurrLabel.frame.origin.y, width: customContainer.bounds.size.width * 0.5, height: baseCurrLabel.bounds.size.height), currencyCode: favoritesItem["chosenCurrency"]!)
+        
+        getCurrNameFromDB(favoritesItem["baseCurrency"]!, completionHander: { currName in
+            let baseFullCurrName = self.createCurrCodeLabels(true, customFrame: CGRect(x: baseCurrLabel.frame.origin.x, y: baseCurrLabel.bounds.size.height + 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.125), currencyCode: currName)
+            customContainer.addSubview(baseFullCurrName)
+        })
+        
+        getCurrNameFromDB(favoritesItem["chosenCurrency"]!, completionHander: { currName in
+            let chosenFullCurrName = self.createCurrCodeLabels(true, customFrame: CGRect(x: customContainer.bounds.size.width * 0.5, y: baseCurrLabel.bounds.size.height + 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.125), currencyCode: currName)
+            customContainer.addSubview(chosenFullCurrName)
+        })
+        
+        
+        
+        cell.contentView.addSubview(customContainer)
+        customContainer.addSubview(chosenCurrLabel)
+        customContainer.addSubview(baseCurrLabel)
+        customContainer.addSubview(borderLine)
         
         return cell
     }
-
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return self.tableView.bounds.height * 0.2
+    }
+    
     func createNoFavoritesView () -> UILabel {
         let noFavoritesYet = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.size.width, height: self.tableView.bounds.size.height))
         noFavoritesYet.textColor = UIColor.whiteColor()
@@ -167,6 +197,27 @@ class MainPageTableViewController: UITableViewController {
         noFavoritesYet.textAlignment = NSTextAlignment.Center
         
         return noFavoritesYet
+    }
+    
+    func createCurrCodeLabels (isFullCurrLabel: Bool, customFrame: CGRect, currencyCode: String) -> UILabel {
+        let currLabel = UILabel(frame: customFrame)
+        currLabel.textColor = UIColor.blackColor()
+        if !isFullCurrLabel {
+            currLabel.font = UIFont(name: "OpenSans-Light", size: customFrame.height * 0.8)
+        } else {
+            currLabel.font = UIFont(name: "OpenSans-Light", size: customFrame.height * 0.6)
+        }
+        currLabel.text = currencyCode
+        currLabel.clipsToBounds = true
+        currLabel.textAlignment = NSTextAlignment.Center
+        
+        return currLabel
+    }
+    
+    func getCurrNameFromDB (currCode: String, completionHander: (String!) -> Void) {
+        ref.childByAppendingPath("jsonCurrencies").observeEventType(.Value, withBlock: { snapshot in
+            completionHander(snapshot.value.objectForKey(currCode)!["name"] as! String)
+        })
     }
     
     // Override to support conditional editing of the table view.
