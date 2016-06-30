@@ -288,7 +288,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             ]
      
             /* Adds the dictionary to the DB. */
-            ref.childByAppendingPath("favoritesList").childByAppendingPath(favorite["date"]).setValue(favorite)
+            ref.childByAppendingPath("users").childByAppendingPath(Constants.authID).childByAppendingPath("favoritesList").childByAppendingPath(favorite["date"]).setValue(favorite)
             
             listOfFavorites.append(favorite)
         } else {
@@ -422,7 +422,7 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     }
     
     func getCurrencyConversionRates (baseCurrency: String, chosenCurrency: String, completionHandler: (String?, NSError?) -> Void ) -> NSURLSessionTask {
-        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22" + baseCurrency + chosenCurrency + "%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")!, completionHandler: { (data, response, error) -> Void in
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%3D%22" + baseCurrency + chosenCurrency + "%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")!, completionHandler: { (data, response, error) -> Void in
             do{
                 let dict: Dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! [String:AnyObject]
                 let amount: String = (dict["query"]!["results"]!!["rate"]!!["Rate"]!! as? String)!

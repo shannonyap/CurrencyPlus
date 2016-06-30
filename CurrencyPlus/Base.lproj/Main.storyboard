@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ocf-XT-NWf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bw2-s9-T88">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -335,7 +335,7 @@
                         <outlet property="loginEmailError" destination="u0d-eh-r3P" id="sZN-dM-5mi"/>
                         <outlet property="loginPassword" destination="8Nj-wt-odX" id="NYw-lp-Oof"/>
                         <outlet property="loginPasswordError" destination="sva-7U-fgo" id="Z6B-6f-fGK"/>
-                        <segue destination="ocf-XT-NWf" kind="show" identifier="SegueToMainPage" id="KmT-cV-12n"/>
+                        <segue destination="ocf-XT-NWf" kind="presentation" identifier="SegueToMainPage" id="KmT-cV-12n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RaW-Nf-fmH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -356,7 +356,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W3J-fP-78k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="826" y="1124"/>
+            <point key="canvasLocation" x="942" y="923"/>
         </scene>
         <!--Main Page Table View Controller-->
         <scene sceneID="0HS-gh-M1G">
@@ -381,11 +381,18 @@
                             <outlet property="delegate" destination="N6S-KV-C2Y" id="oBJ-pn-NS4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="iWd-z7-mJf"/>
+                    <navigationItem key="navigationItem" id="iWd-z7-mJf">
+                        <barButtonItem key="rightBarButtonItem" title="Sign Out" id="dHO-cb-rQh">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="bw2-s9-T88" kind="presentation" id="5kp-vf-SiZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qdF-JO-YBZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1697" y="986"/>
+            <point key="canvasLocation" x="248" y="1640"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="Okf-Y3-5ln">
@@ -449,7 +456,7 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="55"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e8S-k0-HfG">
@@ -685,6 +692,6 @@
         <image name="Images/money.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rFw-tK-F68"/>
+        <segue reference="5kp-vf-SiZ"/>
     </inferredMetricsTieBreakers>
 </document>

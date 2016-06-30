@@ -12,14 +12,16 @@ import SCLAlertView
 
 struct Constants {
     static let firebaseUrl = "https://currencyplus.firebaseio.com/"
-    static var items = ["Favorites", "Currency Converter", "Settings"]
+    static var items = ["Favorites", "Currency Converter"]
     static let textFieldWidth: CGFloat = 125.0
     static let textFieldHeight: CGFloat = 50.0
     static let jsonUrl = "http://www.localeplanet.com/api/auto/currencymap.json?name=Y"
+    static var authID = ""
 }
 
 class LoginViewController: UIViewController {
     
+    var authUID = ""
     var showNotification = 0
     
     @IBOutlet weak var loginEmail: UITextField!
@@ -46,6 +48,7 @@ class LoginViewController: UIViewController {
                             }
                         } else {
                             // We are now logged in
+                            Constants.authID = authData.uid
                             self.performSegueWithIdentifier("SegueToMainPage", sender: sender)
                         }
         })

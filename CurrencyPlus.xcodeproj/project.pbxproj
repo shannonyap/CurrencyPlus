@@ -11,7 +11,6 @@
 		DA3B44A21CBB7C290074A07E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3B44A11CBB7C290074A07E /* LoginViewController.swift */; };
 		DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA50C5111CF010070018B164 /* MainPageTableViewController.swift */; };
 		DA56A5FB1CF02DC000C42138 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */; };
-		DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */; };
 		DA56A6021CF163B700C42138 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */; };
 		DA56A6091CF2BFFB00C42138 /* BebasNeueRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */; };
 		DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA728D991CBB6D93007D7EFB /* AppDelegate.swift */; };
@@ -35,7 +34,6 @@
 		DA3B44A11CBB7C290074A07E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		DA50C5111CF010070018B164 /* MainPageTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageTableViewController.swift; sourceTree = "<group>"; };
 		DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
-		DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "Fonts/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = BebasNeueRegular.ttf; path = Fonts/BebasNeueRegular.ttf; sourceTree = "<group>"; };
 		DA728D961CBB6D93007D7EFB /* CurrencyPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +112,6 @@
 				DA56A5FA1CF02DC000C42138 /* CurrencyViewController.swift */,
 				DAF4DB5A1D1CEB270001B125 /* JBChartBridgingHeader.m */,
 				DA8DAEE11D0FAE0D00E9CEFB /* GraphViewController.swift */,
-				DA56A5FD1CF1242D00C42138 /* SettingsViewController.swift */,
 				DA56A6081CF2BFFB00C42138 /* BebasNeueRegular.ttf */,
 				DAD2D51B1D02163700A98D02 /* OpenSans-Light.ttf */,
 				DA56A6011CF163B700C42138 /* Quicksand-Regular.ttf */,
@@ -265,7 +262,6 @@
 				DA728DAC1CBB6E0E007D7EFB /* Base.swift in Sources */,
 				DA50C5121CF010070018B164 /* MainPageTableViewController.swift in Sources */,
 				DA728D9A1CBB6D93007D7EFB /* AppDelegate.swift in Sources */,
-				DA56A5FE1CF1242D00C42138 /* SettingsViewController.swift in Sources */,
 				DAF4DB5B1D1CEB270001B125 /* JBChartBridgingHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

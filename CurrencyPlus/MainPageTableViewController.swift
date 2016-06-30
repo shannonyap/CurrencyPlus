@@ -36,9 +36,7 @@ extension UIViewController {
             homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("MainPageTableViewController") as! MainPageTableViewController
         } else if (indexPath == 1 ) {
             homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("CurrencyViewController") as! CurrencyViewController
-        } else if (indexPath == 2) {
-            homeViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SettingsViewController") as! SettingsViewController
-        }
+        } 
         let nav = UINavigationController(rootViewController: homeViewController)
         appdelegate.window!.rootViewController = nav
     }
@@ -60,9 +58,8 @@ class MainPageTableViewController: UITableViewController {
     var favoritesList: [FDataSnapshot] = []
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         UIApplication.sharedApplication().statusBarStyle = .LightContent
-        
         let items = Constants.items
         navBarDefaults()
 
@@ -79,7 +76,7 @@ class MainPageTableViewController: UITableViewController {
             }
         }
         
-        ref.childByAppendingPath("favoritesList").observeEventType(.Value) { (snapshot: FDataSnapshot!) in
+        ref.childByAppendingPath("users").childByAppendingPath(Constants.authID).childByAppendingPath("favoritesList").observeEventType(.Value) { (snapshot: FDataSnapshot!) in
             var favoritesDataItems = [FDataSnapshot]()
             
             // loop through the children and append them to the new array
@@ -159,26 +156,39 @@ class MainPageTableViewController: UITableViewController {
         
         let favoritesItem: Dictionary<String, String> = (self.favoritesList[indexPath.row].value as? Dictionary<String, String>)!
 
-        let baseCurrLabel = createCurrCodeLabels(false, customFrame: CGRect(x: 0, y: 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.215), currencyCode: favoritesItem["baseCurrency"]!)
+        let baseCurrLabel = createLabels(0, customFrame: CGRect(x: 0, y: 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.215), currencyCode: favoritesItem["baseCurrency"]!)
         
-        let chosenCurrLabel = createCurrCodeLabels(false, customFrame: CGRect(x: customContainer.bounds.size.width * 0.5, y: baseCurrLabel.frame.origin.y, width: customContainer.bounds.size.width * 0.5, height: baseCurrLabel.bounds.size.height), currencyCode: favoritesItem["chosenCurrency"]!)
+        let chosenCurrLabel = createLabels(0, customFrame: CGRect(x: customContainer.bounds.size.width * 0.5, y: baseCurrLabel.frame.origin.y, width: customContainer.bounds.size.width * 0.5, height: baseCurrLabel.bounds.size.height), currencyCode: favoritesItem["chosenCurrency"]!)
         
         getCurrNameFromDB(favoritesItem["baseCurrency"]!, completionHander: { currName in
-            let baseFullCurrName = self.createCurrCodeLabels(true, customFrame: CGRect(x: baseCurrLabel.frame.origin.x, y: baseCurrLabel.bounds.size.height + 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.125), currencyCode: currName)
+            let baseFullCurrName = self.createLabels(1, customFrame: CGRect(x: baseCurrLabel.frame.origin.x, y: baseCurrLabel.bounds.size.height + 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.125), currencyCode: currName)
             customContainer.addSubview(baseFullCurrName)
         })
         
         getCurrNameFromDB(favoritesItem["chosenCurrency"]!, completionHander: { currName in
-            let chosenFullCurrName = self.createCurrCodeLabels(true, customFrame: CGRect(x: customContainer.bounds.size.width * 0.5, y: baseCurrLabel.bounds.size.height + 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.125), currencyCode: currName)
+            let chosenFullCurrName = self.createLabels(1, customFrame: CGRect(x: customContainer.bounds.size.width * 0.5, y: baseCurrLabel.bounds.size.height + 5, width: customContainer.bounds.size.width * 0.5, height: customContainer.bounds.size.height * 0.125), currencyCode: currName)
             customContainer.addSubview(chosenFullCurrName)
         })
         
+        let baseAmount = createLabels(2, customFrame: CGRect(x: 0, y: baseCurrLabel.bounds.size.height + 10 + customContainer.bounds.size.height * 0.125, width: baseCurrLabel.bounds.size.width, height: customContainer.bounds.size.height * 0.35), currencyCode: favoritesItem["baseCurrencyAmount"]!)
+        
+        getCurrencyConversionRates(favoritesItem["baseCurrency"]!, chosenCurrency: favoritesItem["chosenCurrency"]!, completionHandler: { amount, error in
+            dispatch_async(dispatch_get_main_queue(), {
+                let chosenAmount = self.createLabels(2, customFrame: CGRect(x: baseAmount.bounds.size.width, y: baseAmount.frame.origin.y, width: baseAmount.bounds.size.width, height: baseAmount.bounds.size.height), currencyCode: String(Double(favoritesItem["baseCurrencyAmount"]!)! * Double(amount!)!))
+                
+                let lastUpdatedTimeLabel = self.createLabels(3, customFrame: CGRect(x: 0, y: baseAmount.frame.origin.y + baseAmount.bounds.size.height, width: customContainer.bounds.size.width, height: customContainer.bounds.size.height - (baseAmount.frame.origin.y + baseAmount.bounds.size.height)), currencyCode: "The exchange rate is : \(amount!)")
+                
+                customContainer.addSubview(chosenAmount)
+                customContainer.addSubview(lastUpdatedTimeLabel)
+            })
+        })
         
         
         cell.contentView.addSubview(customContainer)
         customContainer.addSubview(chosenCurrLabel)
         customContainer.addSubview(baseCurrLabel)
         customContainer.addSubview(borderLine)
+        customContainer.addSubview(baseAmount)
         
         return cell
     }
@@ -199,17 +209,23 @@ class MainPageTableViewController: UITableViewController {
         return noFavoritesYet
     }
     
-    func createCurrCodeLabels (isFullCurrLabel: Bool, customFrame: CGRect, currencyCode: String) -> UILabel {
+    func createLabels (labelType: Int, customFrame: CGRect, currencyCode: String) -> UILabel {
         let currLabel = UILabel(frame: customFrame)
         currLabel.textColor = UIColor.blackColor()
-        if !isFullCurrLabel {
+        currLabel.textAlignment = NSTextAlignment.Center
+        if labelType == 0 {
             currLabel.font = UIFont(name: "OpenSans-Light", size: customFrame.height * 0.8)
-        } else {
+        } else if labelType == 1 {
             currLabel.font = UIFont(name: "OpenSans-Light", size: customFrame.height * 0.6)
+        } else if labelType == 2 {
+            currLabel.font = UIFont(name: "BebasNeueRegular", size: customFrame.height * 0.8)
+        } else if labelType == 3 {
+            currLabel.font = UIFont(name: "OpenSans-Light", size: customFrame.height * 0.5)
+            currLabel.textColor = UIColor.whiteColor()
+            currLabel.backgroundColor = UIColor(red: 100/255.0, green: 100/255.0, blue: 100/255.0, alpha: 1)
         }
         currLabel.text = currencyCode
         currLabel.clipsToBounds = true
-        currLabel.textAlignment = NSTextAlignment.Center
         
         return currLabel
     }
@@ -218,6 +234,22 @@ class MainPageTableViewController: UITableViewController {
         ref.childByAppendingPath("jsonCurrencies").observeEventType(.Value, withBlock: { snapshot in
             completionHander(snapshot.value.objectForKey(currCode)!["name"] as! String)
         })
+    }
+    
+    func getCurrencyConversionRates (baseCurrency: String, chosenCurrency: String, completionHandler: (String?, NSError?) -> Void ) -> NSURLSessionTask {
+        let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%3D%22" + baseCurrency + chosenCurrency + "%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")!, completionHandler: { (data, response, error) -> Void in
+            do{
+                let dict: Dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! [String:AnyObject]
+                print(dict)
+                let amount: String = (dict["query"]!["results"]!!["rate"]!!["Rate"]!! as? String)!
+                completionHandler(amount, nil)
+            }
+            catch {
+                print("json error: \(error)")
+            }
+        })
+        task.resume()
+        return task
     }
     
     // Override to support conditional editing of the table view.
@@ -230,7 +262,7 @@ class MainPageTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            ref.childByAppendingPath("favoritesList").childByAppendingPath(self.favoritesList[indexPath.row].key).removeValue()
+            ref.childByAppendingPath("users").childByAppendingPath(Constants.authID).childByAppendingPath("favoritesList").childByAppendingPath(self.favoritesList[indexPath.row].key).removeValue()
             self.favoritesList.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
