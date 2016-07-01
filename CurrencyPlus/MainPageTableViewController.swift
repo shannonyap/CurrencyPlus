@@ -127,6 +127,12 @@ class MainPageTableViewController: UITableViewController {
         self.menuView.hide()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (menuView.isShown) != nil {
+            menuView.hide()
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
