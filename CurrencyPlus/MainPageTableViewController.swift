@@ -129,7 +129,7 @@ class MainPageTableViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (menuView.isShown) != nil {
-            menuView.hide()
+            menuView.hide()   
         }
     }
     
