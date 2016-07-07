@@ -413,7 +413,9 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
             ref.childByAppendingPath("jsonCurrencies").observeEventType(.ChildAdded, withBlock: { snapshot in
             let text: String = textField.text!
             let currencyCode: String = snapshot.value.objectForKey("code")! as! String
-            if text.uppercaseString.containsString(currencyCode) {
+            let searchTerm1: String = snapshot.value.objectForKey("searchTerm1")! as! String
+            let searchTerm2: String = snapshot.value.objectForKey("searchTerm2")! as! String
+            if text.uppercaseString.containsString(currencyCode) && (text.containsString(searchTerm1) || text.containsString(searchTerm2)) {
                 textField.textAlignment = NSTextAlignment.Right
                 textField.text = currencyCode
                 completionHandler(textField.text)

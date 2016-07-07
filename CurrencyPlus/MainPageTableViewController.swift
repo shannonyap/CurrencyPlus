@@ -246,7 +246,6 @@ class MainPageTableViewController: UITableViewController {
         let task = NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%3D%22" + baseCurrency + chosenCurrency + "%22&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=")!, completionHandler: { (data, response, error) -> Void in
             do{
                 let dict: Dictionary = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments) as! [String:AnyObject]
-                print(dict)
                 let amount: String = (dict["query"]!["results"]!!["rate"]!!["Rate"]!! as? String)!
                 completionHandler(amount, nil)
             }
