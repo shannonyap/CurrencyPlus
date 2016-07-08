@@ -412,10 +412,12 @@ class CurrencyViewController: UIViewController, UITextFieldDelegate {
     func asyncGetFirebaseData(textField: AutocompleteField, completionHandler: (String!) -> Void) {
             ref.childByAppendingPath("jsonCurrencies").observeEventType(.ChildAdded, withBlock: { snapshot in
             let text: String = textField.text!
+                
+                print(text)
             let currencyCode: String = snapshot.value.objectForKey("code")! as! String
             let searchTerm1: String = snapshot.value.objectForKey("searchTerm1")! as! String
             let searchTerm2: String = snapshot.value.objectForKey("searchTerm2")! as! String
-            if text.uppercaseString.containsString(currencyCode) && (text.containsString(searchTerm1) || text.containsString(searchTerm2)) {
+            if text.uppercaseString.containsString(currencyCode) && (text.uppercaseString.containsString(searchTerm1.uppercaseString) || text.uppercaseString.containsString(searchTerm2.uppercaseString)) {
                 textField.textAlignment = NSTextAlignment.Right
                 textField.text = currencyCode
                 completionHandler(textField.text)
