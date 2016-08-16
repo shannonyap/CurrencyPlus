@@ -21,6 +21,7 @@ struct Constants {
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
     var authUID = ""
     var showNotification = 0
     
@@ -57,7 +58,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addTapGesture()
-        
+        titleLabel.font = UIFont(name: "Alcubierre", size: 40.0)
         // Do any additional setup after loading the view.
     }
 

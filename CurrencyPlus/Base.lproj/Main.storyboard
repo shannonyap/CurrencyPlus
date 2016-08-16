@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bw2-s9-T88">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="bw2-s9-T88">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Gidole-Regular.ttf">
-            <string>Gidole-Regular</string>
+        <mutableArray key="Alcubierre.otf">
+            <string>Alcubierre</string>
         </mutableArray>
         <mutableArray key="Vegur-Light.ttf">
             <string>Vegur-Light</string>
@@ -199,7 +199,7 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CurrencyPlus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKb-12-HmY">
                                 <rect key="frame" x="33" y="0.0" width="534" height="136"/>
-                                <fontDescription key="fontDescription" name="Gidole-Regular" family="Gidole" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="Alcubierre" family="Alcubierre" pointSize="40"/>
                                 <color key="textColor" red="0.93583808011274328" green="1" blue="0.9804008282975134" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -335,6 +335,7 @@
                         <outlet property="loginEmailError" destination="u0d-eh-r3P" id="sZN-dM-5mi"/>
                         <outlet property="loginPassword" destination="8Nj-wt-odX" id="NYw-lp-Oof"/>
                         <outlet property="loginPasswordError" destination="sva-7U-fgo" id="Z6B-6f-fGK"/>
+                        <outlet property="titleLabel" destination="NKb-12-HmY" id="nto-bD-wnY"/>
                         <segue destination="ocf-XT-NWf" kind="presentation" identifier="SegueToMainPage" id="KmT-cV-12n"/>
                     </connections>
                 </viewController>
